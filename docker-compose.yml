@@ -1,0 +1,112 @@
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agenda-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/var/www/html
+      - /var/www/html/vendor
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: agenda_escolar
+      DB_USERNAME: agenda_user
+      DB_PASSWORD: agenda_password
+      QUEUE_CONNECTION: redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      FILESYSTEM_DISK: s3
+      AWS_ACCESS_KEY_ID: s3admin
+      AWS_SECRET_ACCESS_KEY: s3admin123
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_BUCKET: agenda-arquivos
+      AWS_ENDPOINT: http://s3mock:9090
+      AWS_USE_PATH_STYLE_ENDPOINT: "true"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: agenda-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  mysql:
+    image: mysql:8.4
+    container_name: agenda-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: agenda_escolar
+      MYSQL_USER: agenda_user
+      MYSQL_PASSWORD: agenda_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: agenda-redis
+    restart: unless-stopped
+
+  queue-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: agenda-queue-worker
+    command: php artisan queue:work redis --tries=3
+    volumes:
+      - ./backend:/var/www/html
+      - /var/www/html/vendor
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: agenda_escolar
+      DB_USERNAME: agenda_user
+      DB_PASSWORD: agenda_password
+      QUEUE_CONNECTION: redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  s3mock:
+    image: adobe/s3mock:5.2.3
+    container_name: agenda-s3mock
+    environment:
+      COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: agenda-arquivos
+    ports:
+      - "9090:9090"
+
+volumes:
+  mysql_data:
+  minio_data:

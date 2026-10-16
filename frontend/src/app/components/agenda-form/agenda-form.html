@@ -1,9 +1,14 @@
-<section class="formulario !bg-blue-100 p-6 rounded-xl">
-  <h2>Nova agenda</h2>
 
-  <form (ngSubmit)="enviarFormulario()">
-    <div class="campo">
-      <label for="titulo">Título *</label>
+<section class="!bg-green-100 p-6 rounded-xl shadow-sm border border-gray-200">
+  <h2 class="text-xl font-bold text-gray-800 mb-5">
+    Nova agenda
+  </h2>
+
+  <form class="grid grid-cols-1 gap-4" (ngSubmit)="enviarFormulario()">
+    <div class="grid gap-2">
+      <label for="titulo" class="font-medium text-gray-700">
+        Título *
+      </label>
       <input
         id="titulo"
         type="text"
@@ -12,38 +17,48 @@
         required
         maxlength="255"
         placeholder="Ex.: Reunião de pais"
+        class="w-full min-h-11 p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-green-600"
       />
     </div>
 
-    <div class="campo">
-      <label for="descricao">Descrição</label>
+    <div class="grid gap-2">
+      <label for="descricao" class="font-medium text-gray-700">
+        Descrição
+      </label>
       <textarea
         id="descricao"
         name="descricao"
         [(ngModel)]="descricao"
         rows="3"
         placeholder="Detalhes do evento..."
+        class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-green-600"
       ></textarea>
     </div>
 
-    <div class="campo">
-      <label for="dataEvento">Data e hora *</label>
+    <div class="grid gap-2">
+      <label for="dataEvento" class="font-medium text-gray-700">
+        Data e hora *
+      </label>
       <input
         id="dataEvento"
         type="datetime-local"
         name="dataEvento"
         [(ngModel)]="dataEvento"
         required
+        class="w-full min-h-11 p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-green-600"
       />
     </div>
 
-    <div class="campo">
-      <label for="perfil">Perfil *</label>
+    <div class="grid gap-2">
+      <label for="perfil" class="font-medium text-gray-700">
+        Perfil *
+      </label>
       <select
         id="perfil"
         name="perfil"
         [(ngModel)]="perfilId"
         required
+        class="w-full min-h-11 p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-green-600"
       >
         <option
           *ngFor="let perfil of perfis"
@@ -57,11 +72,16 @@
     <button
       type="submit"
       [disabled]="salvando || !titulo.trim() || !dataEvento || !perfilId"
+      class="w-full min-h-11 px-4 py-3 rounded-lg bg-green-800 text-white font-semibold hover:bg-green-900 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
     >
       {{ salvando ? 'Processando...' : 'Cadastrar agenda' }}
     </button>
 
-    <p *ngIf="mensagem" role="status">
+    <p
+      *ngIf="mensagem"
+      role="status"
+      class="text-sm font-medium text-gray-700"
+    >
       {{ mensagem }}
     </p>
   </form>

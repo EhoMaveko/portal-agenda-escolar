@@ -1,156 +1,169 @@
-<div class="container">
-  <header>
-    <h1>Portal da Agenda Escolar</h1>
-    <p>Consulte e cadastre eventos escolares.</p>
+
+<div class="min-h-screen bg-gray-50 p-4 sm:p-8">
+  <header class="mx-auto mb-8 max-w-5xl">
+    <h1 class="text-3xl font-bold text-green-900">
+      Portal da Agenda Escolar
+    </h1>
+    <p class="mt-2 text-gray-600">
+      Consulte e cadastre eventos escolares.
+    </p>
   </header>
 
-  <main>
-    <section class="relatorio-dsa">
-      <div>
-        <h2>Relatório DSA</h2>
-        <p>Gere um resumo das agendas e de suas respostas.</p>
-      </div>
+  <main class="mx-auto max-w-5xl space-y-6">
+
+    <section class="rounded-lg border bg-green-50 p-5">
+      <h2 class="text-xl font-bold text-green-900">
+        Relatório DSA
+      </h2>
+
+      <p class="my-3 text-gray-600">
+        Gere um resumo das agendas e de suas respostas.
+      </p>
 
       <button
         type="button"
         (click)="solicitarResumoDsa()"
         [disabled]="solicitandoRelatorio"
+        class="rounded-lg bg-green-800 px-4 py-3 text-white hover:bg-green-900 disabled:opacity-60"
       >
-        {{
-          solicitandoRelatorio
-            ? 'Processando...'
-            : 'Solicitar relatório DSA'
-        }}
+        {{ solicitandoRelatorio ? 'Processando...' : 'Solicitar relatório DSA' }}
       </button>
 
       <p
         *ngIf="mensagemRelatorio"
         role="status"
-        [class.erro-relatorio]="erroRelatorio"
+        class="mt-3 text-sm"
       >
         {{ mensagemRelatorio }}
       </p>
     </section>
 
     <app-agenda-form
-  [perfis]="perfis"
-  [salvando]="salvando"
-  [mensagem]="mensagem"
-  (cadastrar)="cadastrarAgenda($event)"
-></app-agenda-form>
+      [perfis]="perfis"
+      [salvando]="salvando"
+      [mensagem]="mensagem"
+      (cadastrar)="cadastrarAgenda($event)"
+    ></app-agenda-form>
 
-    <section class="agendas">
-      <app-agenda-list
-        [agendas]="agendas"
-        [carregando]="carregando"
-        [erro]="erro"
-        (selecionar)="selecionarAgenda($event)"
-      ></app-agenda-list>
+    <app-agenda-list
+      [agendas]="agendas"
+      [carregando]="carregando"
+      [erro]="erro"
+      (selecionar)="selecionarAgenda($event)"
+    ></app-agenda-list>
 
-      <section
-        class="formulario-resposta"
-        *ngIf="agendaSelecionadaId !== null"
+    <section
+      *ngIf="agendaSelecionadaId !== null"
+      class="space-y-4 rounded-lg border bg-white p-5"
+    >
+      <h2 class="text-xl font-bold text-green-900">
+        Enviar resposta
+      </h2>
+
+      <form class="space-y-4" (ngSubmit)="enviarResposta()">
+
+        <div>
+          <label for="nomeAluno" class="mb-1 block font-medium">
+            Nome do aluno *
+          </label>
+          <input
+            id="nomeAluno"
+            type="text"
+            name="nomeAluno"
+            [(ngModel)]="nomeAluno"
+            required
+            maxlength="255"
+            placeholder="Digite o nome do aluno"
+            class="w-full rounded-lg border p-3"
+          />
+        </div>
+
+        <div>
+          <label for="comentarioResposta" class="mb-1 block font-medium">
+            Comentário
+          </label>
+          <textarea
+            id="comentarioResposta"
+            name="comentarioResposta"
+            [(ngModel)]="comentarioResposta"
+            rows="3"
+            placeholder="Escreva sua resposta..."
+            class="w-full rounded-lg border p-3"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="arquivo" class="mb-1 block font-medium">
+            Anexar arquivo (opcional, até 10 MB)
+          </label>
+          <input
+            id="arquivo"
+            type="file"
+            name="arquivo"
+            (change)="onArquivoSelecionado($event)"
+            class="w-full rounded-lg border p-2"
+          />
+
+          <p *ngIf="arquivoSelecionado" class="mt-1 text-sm text-gray-600">
+            Arquivo: {{ arquivoSelecionado.name }}
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="enviandoResposta || !nomeAluno.trim()"
+          class="rounded-lg bg-green-800 px-4 py-3 text-white hover:bg-green-900 disabled:opacity-60"
+        >
+          {{ enviandoResposta ? 'Processando...' : 'Enviar resposta' }}
+        </button>
+
+        <button
+          type="button"
+          (click)="agendaSelecionadaId = null"
+          [disabled]="enviandoResposta"
+          class="ml-2 rounded-lg border px-4 py-3 hover:bg-gray-100"
+        >
+          Cancelar
+        </button>
+
+        <p *ngIf="mensagemResposta" role="status" class="text-sm">
+          {{ mensagemResposta }}
+        </p>
+      </form>
+
+      <hr />
+
+      <h3 class="text-lg font-bold">Respostas já enviadas</h3>
+
+      <p *ngIf="carregandoRespostas">
+        Carregando respostas...
+      </p>
+
+      <p *ngIf="!carregandoRespostas && respostas.length === 0">
+        Nenhuma resposta cadastrada para esta agenda.
+      </p>
+
+      <article
+        *ngFor="let resposta of respostas"
+        class="space-y-2 rounded-lg border bg-gray-50 p-4"
       >
-        <h2>Enviar resposta</h2>
-
-        <form (ngSubmit)="enviarResposta()">
-          <div class="campo">
-            <label for="nomeAluno">Nome do aluno *</label>
-            <input
-              id="nomeAluno"
-              type="text"
-              name="nomeAluno"
-              [(ngModel)]="nomeAluno"
-              required
-              maxlength="255"
-              placeholder="Digite o nome do aluno"
-            />
-          </div>
-
-          <div class="campo">
-            <label for="comentarioResposta">Comentário</label>
-            <textarea
-              id="comentarioResposta"
-              name="comentarioResposta"
-              [(ngModel)]="comentarioResposta"
-              rows="3"
-              placeholder="Escreva sua resposta..."
-            ></textarea>
-          </div>
-
-          <div class="campo">
-            <label for="arquivo">
-              Anexar arquivo (opcional, até 10 MB)
-            </label>
-
-            <input
-              id="arquivo"
-              type="file"
-              name="arquivo"
-              (change)="onArquivoSelecionado($event)"
-            />
-
-            <small *ngIf="arquivoSelecionado">
-              Arquivo: {{ arquivoSelecionado.name }}
-            </small>
-          </div>
-
-          <button type="submit" [disabled]="enviandoResposta">
-            {{ enviandoResposta ? 'Processando...' : 'Enviar resposta' }}
-          </button>
-
-          <button
-            type="button"
-            (click)="agendaSelecionadaId = null"
-            [disabled]="enviandoResposta"
-          >
-            Cancelar
-          </button>
-
-          <p *ngIf="mensagemResposta" role="status">
-            {{ mensagemResposta }}
-          </p>
-        </form>
-
-        <hr />
-
-        <h3>Respostas já enviadas</h3>
-
-        <p *ngIf="carregandoRespostas">
-          Carregando respostas...
+        <p>
+          <strong>Aluno:</strong> {{ resposta.aluno_nome }}
         </p>
-
-        <p
-          *ngIf="!carregandoRespostas && respostas.length === 0"
-        >
-          Nenhuma resposta cadastrada para esta agenda.
+        <p>
+          <strong>Comentário:</strong>
+          {{ resposta.comentario || 'Sem comentário.' }}
         </p>
-
-        <article
-          class="resposta"
-          *ngFor="let resposta of respostas"
-        >
-          <p>
-            <strong>Aluno:</strong>
-            {{ resposta.aluno_nome }}
-          </p>
-
-          <p>
-            <strong>Comentário:</strong>
-            {{ resposta.comentario || 'Sem comentário.' }}
-          </p>
-
-          <p>
-            <strong>Arquivo:</strong>
-            {{ resposta.arquivo_path || 'Nenhum arquivo anexado.' }}
-          </p>
-
-          <small>
-            Enviada em:
-            {{ resposta.created_at | date:'dd/MM/yyyy HH:mm' }}
-          </small>
-        </article>
-      </section>
+        <p class="break-all">
+          <strong>Arquivo:</strong>
+          {{ resposta.arquivo_path || 'Nenhum arquivo anexado.' }}
+        </p>
+        <small class="text-gray-500">
+          Enviada em:
+          {{ resposta.created_at | date:'dd/MM/yyyy HH:mm' }}
+        </small>
+      </article>
     </section>
+
   </main>
 </div>

@@ -1,0 +1,27 @@
+<section class="agenda-list">
+  <h2>Agendas cadastradas</h2>
+
+  <p *ngIf="carregando">Carregando agendas...</p>
+  <p *ngIf="erro" class="mensagem erro">{{ erro }}</p>
+
+  <p *ngIf="!carregando && !erro && agendas.length === 0">
+    Nenhuma agenda cadastrada.
+  </p>
+
+  <article *ngFor="let agenda of agendas" class="agenda-card">
+    <h3>{{ agenda.titulo }}</h3>
+
+    <p *ngIf="agenda.descricao">{{ agenda.descricao }}</p>
+
+    <p>
+      <strong>Data:</strong>
+      {{ agenda.data_evento | date:'dd/MM/yyyy' }}
+    </p>
+
+    <p><strong>Status:</strong> {{ agenda.status }}</p>
+
+    <button type="button" (click)="selecionar.emit(agenda.id)">
+      Ver respostas e responder
+    </button>
+  </article>
+</section>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
+import { AgendaListComponent } from './components/agenda-list/agenda-list';
+import { AgendaFormComponent } from './components/agenda-form/agenda-form';
 
 interface Agenda {
   id: number;
@@ -24,7 +26,7 @@ interface Resposta {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AgendaListComponent, AgendaFormComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -92,50 +94,53 @@ export class App implements OnInit {
     });
   }
 
-      cadastrarAgenda(): void {
-      this.mensagem = '';
+      cadastrarAgenda(dados?: {
+        titulo: string;
+        descricao: string;
+        dataEvento: string;
+        perfilId: number;
+      }): void {
+        this.mensagem = '';
 
-      if (
-        !this.novoTitulo.trim() ||
-        !this.novaDataEvento ||
-        !this.novoPerfilId
-      ) {
-        this.mensagem = 'Preencha o título, a data e o perfil.';
-        return;
-      }
+        const titulo = dados?.titulo ?? this.novoTitulo.trim();
+        const descricao = dados?.descricao ?? this.novaDescricao.trim();
+        const dataEvento = dados?.dataEvento ?? this.novaDataEvento;
+        const perfilId = dados?.perfilId ?? this.novoPerfilId;
 
-      this.salvando = true;
-
-      const novaAgenda = {
-        perfil_id: this.novoPerfilId,
-        titulo: this.novoTitulo.trim(),
-        descricao: this.novaDescricao.trim(),
-        data_evento: this.novaDataEvento,
-        status: 'ativo'
-      };
-
-      this.http.post<Agenda>(
-        'http://localhost:8000/api/agendas',
-        novaAgenda
-      ).subscribe({
-        next: (agendaCriada) => {
-          this.agendas.push(agendaCriada);
-
-          this.novoTitulo = '';
-          this.novaDescricao = '';
-          this.novaDataEvento = '';
-
-          this.mensagem = 'Agenda cadastrada com sucesso!';
-          this.salvando = false;
-        },
-        error: (erro) => {
-          console.error('Erro ao cadastrar agenda:', erro);
-
-          this.mensagem = 'Não foi possível cadastrar a agenda.';
-          this.salvando = false;
+        if (!titulo || !dataEvento || !perfilId) {
+          this.mensagem = 'Preencha o título, a data e o perfil.';
+          return;
         }
-      });
-    }
+
+        this.salvando = true;
+
+        const novaAgenda = {
+          perfil_id: perfilId,
+          titulo,
+          descricao,
+          data_evento: dataEvento,
+          status: 'ativo'
+        };
+
+        this.http.post<Agenda>(
+          'http://localhost:8000/api/agendas',
+          novaAgenda
+        ).subscribe({
+          next: (agendaCriada) => {
+            this.agendas.push(agendaCriada);
+            this.novoTitulo = '';
+            this.novaDescricao = '';
+            this.novaDataEvento = '';
+            this.mensagem = 'Agenda cadastrada com sucesso!';
+            this.salvando = false;
+          },
+          error: (erro) => {
+            console.error('Erro ao cadastrar agenda:', erro);
+            this.mensagem = 'Não foi possível cadastrar a agenda.';
+            this.salvando = false;
+          }
+        });
+      }
 
 
   selecionarAgenda(agendaId: number): void {

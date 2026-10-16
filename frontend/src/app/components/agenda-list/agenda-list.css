@@ -1,0 +1,40 @@
+.agenda-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.agenda-card {
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.agenda-card h3 {
+  margin-top: 0;
+}
+
+.agenda-card button {
+  min-height: 44px;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #166534;
+  color: #fff;
+  cursor: pointer;
+}
+
+.agenda-card button:hover {
+  background: #14532d;
+}
+
+.mensagem.erro {
+  color: #b91c1c;
+}
+
+@media (min-width: 768px) {
+  .agenda-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

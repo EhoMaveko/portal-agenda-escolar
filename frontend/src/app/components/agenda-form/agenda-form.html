@@ -1,0 +1,68 @@
+<section class="formulario !bg-blue-100 p-6 rounded-xl">
+  <h2>Nova agenda</h2>
+
+  <form (ngSubmit)="enviarFormulario()">
+    <div class="campo">
+      <label for="titulo">Título *</label>
+      <input
+        id="titulo"
+        type="text"
+        name="titulo"
+        [(ngModel)]="titulo"
+        required
+        maxlength="255"
+        placeholder="Ex.: Reunião de pais"
+      />
+    </div>
+
+    <div class="campo">
+      <label for="descricao">Descrição</label>
+      <textarea
+        id="descricao"
+        name="descricao"
+        [(ngModel)]="descricao"
+        rows="3"
+        placeholder="Detalhes do evento..."
+      ></textarea>
+    </div>
+
+    <div class="campo">
+      <label for="dataEvento">Data e hora *</label>
+      <input
+        id="dataEvento"
+        type="datetime-local"
+        name="dataEvento"
+        [(ngModel)]="dataEvento"
+        required
+      />
+    </div>
+
+    <div class="campo">
+      <label for="perfil">Perfil *</label>
+      <select
+        id="perfil"
+        name="perfil"
+        [(ngModel)]="perfilId"
+        required
+      >
+        <option
+          *ngFor="let perfil of perfis"
+          [ngValue]="perfil.id"
+        >
+          {{ perfil.nome }} ({{ perfil.tipo }})
+        </option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="salvando || !titulo.trim() || !dataEvento || !perfilId"
+    >
+      {{ salvando ? 'Processando...' : 'Cadastrar agenda' }}
+    </button>
+
+    <p *ngIf="mensagem" role="status">
+      {{ mensagem }}
+    </p>
+  </form>
+</section>

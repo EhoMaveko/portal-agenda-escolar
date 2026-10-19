@@ -27,7 +27,7 @@ services:
       AWS_SECRET_ACCESS_KEY: s3admin123
       AWS_DEFAULT_REGION: us-east-1
       AWS_BUCKET: agenda-arquivos
-      AWS_ENDPOINT: http://s3mock:9090
+      AWS_ENDPOINT: http://minio:9000
       AWS_USE_PATH_STYLE_ENDPOINT: "true"
     depends_on:
       mysql:
@@ -99,13 +99,19 @@ services:
       redis:
         condition: service_started
 
-  s3mock:
-    image: adobe/s3mock:5.2.3
-    container_name: agenda-s3mock
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: portal-minio
+    command: server /data --console-address ":9001"
     environment:
-      COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: agenda-arquivos
+      MINIO_ROOT_USER: s3admin
+      MINIO_ROOT_PASSWORD: s3admin123
     ports:
-      - "9090:9090"
+      - "9000:9000"
+      - "9002:9001"
+    volumes:
+      - minio_data:/data
+    restart: unless-stopped
 
 volumes:
   mysql_data:

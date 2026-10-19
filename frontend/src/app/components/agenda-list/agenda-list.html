@@ -1,20 +1,27 @@
 
-<section class="grid gap-4">
-  <h2 class="text-xl font-bold text-gray-800">
-    Agendas cadastradas
-  </h2>
+<section class="min-w-0 space-y-4">
+  <div>
+    <h2 class="text-xl font-bold text-gray-800">
+      Agendas cadastradas
+    </h2>
+
+    <p class="mt-1 text-sm text-gray-600">
+      Consulte os eventos e selecione uma agenda para responder.
+    </p>
+  </div>
 
   <p
     *ngIf="carregando"
-    class="text-gray-600 p-4 text-center"
+    class="rounded-lg p-4 text-center text-gray-600"
     role="status"
+    aria-live="polite"
   >
     Carregando agendas...
   </p>
 
   <p
     *ngIf="erro"
-    class="p-4 rounded-lg border border-red-200 bg-red-50 text-red-700"
+    class="break-words rounded-lg border border-red-200 bg-red-50 p-4 text-red-700"
     role="alert"
   >
     {{ erro }}
@@ -22,43 +29,53 @@
 
   <p
     *ngIf="!carregando && !erro && agendas.length === 0"
-    class="p-6 rounded-xl border border-dashed border-gray-300 text-center text-gray-500"
+    class="rounded-xl border border-dashed border-gray-300 p-6 text-center text-gray-500"
   >
     Nenhuma agenda cadastrada.
   </p>
 
-  <article
-    *ngFor="let agenda of agendas"
-    class="grid gap-3 p-5 rounded-xl border border-gray-200 bg-white shadow-sm"
+  <div
+    *ngIf="!carregando && !erro && agendas.length > 0"
+    class="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2"
   >
-    <h3 class="text-lg font-semibold text-gray-900">
-      {{ agenda.titulo }}
-    </h3>
-
-    <p *ngIf="agenda.descricao" class="text-gray-600 leading-relaxed">
-      {{ agenda.descricao }}
-    </p>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-      <p class="text-gray-700">
-        <strong>Data:</strong>
-        {{ agenda.data_evento | date:'dd/MM/yyyy' }}
-      </p>
-
-      <p class="text-gray-700">
-        <strong>Status:</strong>
-        <span class="inline-block px-2 py-1 rounded-full bg-green-100 text-green-800 font-medium">
-          {{ agenda.status }}
-        </span>
-      </p>
-    </div>
-
-    <button
-      type="button"
-      (click)="selecionar.emit(agenda.id)"
-      class="w-full sm:w-fit min-h-11 px-4 py-3 rounded-lg bg-green-800 text-white font-semibold hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 transition-colors"
+    <article
+      *ngFor="let agenda of agendas"
+      class="flex min-w-0 flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5"
     >
-      Ver respostas e responder
-    </button>
-  </article>
+      <h3 class="break-words text-lg font-semibold text-gray-900">
+        {{ agenda.titulo }}
+      </h3>
+
+      <p
+        *ngIf="agenda.descricao"
+        class="break-words leading-relaxed text-gray-600"
+      >
+        {{ agenda.descricao }}
+      </p>
+
+      <div class="grid min-w-0 grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+        <p class="min-w-0 break-words text-gray-700">
+          <strong>Data:</strong>
+          {{ agenda.data_evento | date:'dd/MM/yyyy' }}
+        </p>
+
+        <p class="min-w-0 break-words text-gray-700">
+          <strong>Status:</strong>
+          <span class="mt-1 inline-block max-w-full break-words rounded-full bg-green-100 px-2 py-1 font-medium text-green-800">
+            {{ agenda.status }}
+          </span>
+        </p>
+      </div>
+
+      <div class="mt-auto pt-2">
+        <button
+          type="button"
+          (click)="selecionar.emit(agenda.id)"
+          class="min-h-11 w-full rounded-lg bg-green-800 px-4 py-3 font-semibold text-white transition-colors hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+        >
+          Ver respostas e responder
+        </button>
+      </div>
+    </article>
+  </div>
 </section>

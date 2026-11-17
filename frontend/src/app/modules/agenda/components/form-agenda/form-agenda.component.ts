@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { COMMONS_MODULES } from '../../../../shared';
 
 export interface Perfil {
   id: number;
@@ -9,13 +8,11 @@ export interface Perfil {
 }
 
 @Component({
-  selector: 'app-agenda-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './agenda-form.html',
-  styleUrl: './agenda-form.css'
+  selector: 'app-form-agenda',
+  imports: [COMMONS_MODULES],
+  templateUrl: './form-agenda.component.html',
 })
-export class AgendaFormComponent {
+export class FormAgendaComponent {
   @Input() perfis: Perfil[] = [];
   @Input() salvando = false;
   @Input() mensagem = '';

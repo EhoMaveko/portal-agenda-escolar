@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AngularSvgIconModule } from 'angular-svg-icon';
+import { COMMONS_MODULES } from '../../../../shared';
 
 export interface Agenda {
   id: number;
@@ -12,13 +11,12 @@ export interface Agenda {
 }
 
 @Component({
-  selector: 'app-agenda-list',
-  standalone: true,
-  imports: [CommonModule, AngularSvgIconModule],
-  templateUrl: './agenda-list.html',
-  styleUrl: './agenda-list.css'
+  selector: 'app-list-agenda',
+  imports: [COMMONS_MODULES],
+  templateUrl: './list-agenda.component.html',
+  styleUrl: './list-agenda.component.css'
 })
-export class AgendaListComponent {
+export class ListAgendaComponent {
   @Input() agendas: Agenda[] = [];
   @Input() carregando = false;
   @Input() erro = '';

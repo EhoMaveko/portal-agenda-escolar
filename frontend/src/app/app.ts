@@ -64,7 +64,11 @@ export class App implements OnInit {
   erroRelatorio = false;
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+
+
+
+  }
 
   ngOnInit(): void {
     this.http.get<Agenda[]>('http://localhost:8000/api/agendas')

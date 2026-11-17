@@ -1,0 +1,29 @@
+
+{
+  "GENERAL": {
+    "SAVE": "Salvar",
+    "CANCEL": "Cancelar",
+    "DELETE": "Excluir",
+    "EDIT": "Editar",
+    "SEARCH": "Pesquisar",
+    "LOADING": "Carregando..."
+  },
+  "MENU": {
+    "HOME": "Início",
+    "DASHBOARD": "Painel",
+    "STUDENTS": "Alunos",
+    "TEACHERS": "Professores",
+    "SETTINGS": "Configurações"
+  },
+  "LOGIN": {
+    "TITLE": "Bem-vindo",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Senha",
+    "SUBMIT": "Entrar"
+  },
+  "HEADER": {
+    "INSTITUTION": "Colégio Adventista",
+    "PROFILE": "Meu perfil",
+    "LOGOUT": "Sair"
+  }
+}

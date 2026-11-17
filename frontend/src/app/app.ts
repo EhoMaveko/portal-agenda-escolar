@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { AgendaListComponent } from './components/agenda-list/agenda-list';
 import { AgendaFormComponent } from './components/agenda-form/agenda-form';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
 
 interface Agenda {
   id: number;
@@ -26,7 +28,7 @@ interface Resposta {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, AgendaListComponent, AgendaFormComponent],
+  imports: [CommonModule, FormsModule, AgendaListComponent, AgendaFormComponent, AngularSvgIconModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,4 +1,5 @@
-﻿# Portal da Agenda Escolar
+﻿
+# Portal da Agenda Escolar
 
 Aplicação web desenvolvida como avaliação técnica, com Laravel, Angular, MySQL, Redis e Docker Compose.
 

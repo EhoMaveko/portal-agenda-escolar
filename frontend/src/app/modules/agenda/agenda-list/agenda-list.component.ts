@@ -23,6 +23,7 @@ interface Resposta {
 }
 
 @Component({
+
   imports: [COMMONS_MODULES, ListAgendaComponent],
   templateUrl: './agenda-list.component.html',
 })
@@ -30,6 +31,7 @@ export class AgendaListComponent implements OnInit {
 
   agendas: Agenda[] = [];
   carregando = true;
+
   erro = '';
 
   perfis: { id: number; nome: string; tipo: string }[] = [];

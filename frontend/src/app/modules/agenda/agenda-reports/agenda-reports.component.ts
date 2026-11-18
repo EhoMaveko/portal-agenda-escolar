@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { interval, startWith, switchMap, Subscription } from 'rxjs';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({
-  selector: 'app-agenda-reports',
   imports: [],
   templateUrl: './agenda-reports.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AgendaReportsComponent {
   private readonly http = inject(HttpClient);
@@ -16,7 +17,7 @@ export class AgendaReportsComponent {
   mensagemRelatorio = '';
   erroRelatorio = false;
 
-  
+
 solicitarResumoDsa(): void {
   this.solicitandoRelatorio = true;
   this.mensagemRelatorio = '';

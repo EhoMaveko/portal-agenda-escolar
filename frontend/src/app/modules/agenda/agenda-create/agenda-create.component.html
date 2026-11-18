@@ -1,5 +1,7 @@
-<app-form-agenda   class="transition-all duration-500 ease-in-out"
-  [class.opacity-0]="!entered"
-  [class.translate-y-3]="!entered"
-  [class.opacity-100]="entered"
-  [class.translate-y-0]="entered" ></app-form-agenda>
+
+<app-form-agenda
+  [perfis]="perfis"
+  [salvando]="salvando"
+  [mensagem]="mensagem"
+  (cadastrar)="cadastrarAgenda($event)"
+></app-form-agenda>

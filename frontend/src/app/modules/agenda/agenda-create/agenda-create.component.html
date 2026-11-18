@@ -1,1 +1,7 @@
-<p>agenda-create works!</p>
+
+<app-form-agenda
+  [perfis]="perfis"
+  [salvando]="salvando"
+  [mensagem]="mensagem"
+  (cadastrar)="cadastrarAgenda($event)"
+></app-form-agenda>

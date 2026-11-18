@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
-import { FormAgendaComponent } from '../components/form-agenda/form-agenda.component';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
-
 
 interface Agenda {
   id: number;
@@ -24,13 +22,15 @@ interface Resposta {
 }
 
 @Component({
-  imports: [COMMONS_MODULES, FormAgendaComponent, ListAgendaComponent],
+
+  imports: [COMMONS_MODULES, ListAgendaComponent],
   templateUrl: './agenda-list.component.html',
 })
 export class AgendaListComponent implements OnInit {
 
   agendas: Agenda[] = [];
   carregando = true;
+
   erro = '';
 
   perfis: { id: number; nome: string; tipo: string }[] = [];
@@ -231,28 +231,5 @@ export class AgendaListComponent implements OnInit {
     });
   }
 
-  solicitarResumoDsa(): void {
-    this.solicitandoRelatorio = true;
-    this.mensagemRelatorio = '';
-    this.erroRelatorio = false;
 
-    this.http.post<{ mensagem: string }>(
-      'http://localhost:8000/api/relatorios/solicitar-resumo-dsa',
-      {}
-    ).subscribe({
-      next: (resposta: { mensagem: string }) => {
-        this.mensagemRelatorio = resposta.mensagem;
-        this.solicitandoRelatorio = false;
-      },
-      error: (erro: { erro: string }) => {
-        console.error('Erro ao solicitar relatório:', erro);
-
-        this.mensagemRelatorio =
-          'Não foi possível solicitar o relatório. Tente novamente.';
-
-        this.erroRelatorio = true;
-        this.solicitandoRelatorio = false;
-      }
-    });
-  }
 }

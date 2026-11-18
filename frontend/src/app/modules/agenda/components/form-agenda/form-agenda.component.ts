@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { COMMONS_MODULES } from '../../../../shared';
 
 export interface Perfil {
@@ -12,7 +13,7 @@ export interface Perfil {
   imports: [COMMONS_MODULES],
   templateUrl: './form-agenda.component.html',
 })
-export class FormAgendaComponent {
+export class FormAgendaComponent implements OnChanges {
   @Input() perfis: Perfil[] = [];
   @Input() salvando = false;
   @Input() mensagem = '';
@@ -29,11 +30,15 @@ export class FormAgendaComponent {
   dataEvento = '';
   perfilId = 0;
 
-  ngOnChanges(): void {
-    if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
-      this.perfilId = this.perfis[0].id;
-    }
+ngOnChanges(): void {
+  if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
+    this.perfilId = this.perfis[0].id;
   }
+
+  if (this.mensagem === 'Salvo com sucesso!') {
+    this.limparFormulario();
+  }
+}
 
   enviarFormulario(): void {
     if (!this.titulo.trim() || !this.dataEvento || !this.perfilId) {

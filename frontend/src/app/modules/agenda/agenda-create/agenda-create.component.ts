@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { FormAgendaComponent, Perfil } from '../components/form-agenda/form-agenda.component';
 
@@ -15,7 +15,10 @@ export class AgendaCreateComponent implements OnInit {
   salvando = false;
   mensagem = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.carregarPerfis();
@@ -26,10 +29,12 @@ export class AgendaCreateComponent implements OnInit {
       .subscribe({
         next: (dados) => {
           this.perfis = dados;
+          this.cdr.markForCheck();
         },
         error: (erro) => {
           console.error('Erro ao buscar perfis:', erro);
           this.mensagem = 'Não foi possível carregar os perfis.';
+          this.cdr.markForCheck();
         }
       });
   }
@@ -57,13 +62,15 @@ export class AgendaCreateComponent implements OnInit {
       novaAgenda
     ).subscribe({
       next: () => {
-        this.mensagem = 'Agenda cadastrada com sucesso!';
+        this.mensagem = 'Salvo com sucesso!';
         this.salvando = false;
+        this.cdr.markForCheck();
       },
       error: (erro) => {
         console.error('Erro ao cadastrar agenda:', erro);
         this.mensagem = 'Não foi possível cadastrar a agenda.';
         this.salvando = false;
+        this.cdr.markForCheck();
       }
     });
   }

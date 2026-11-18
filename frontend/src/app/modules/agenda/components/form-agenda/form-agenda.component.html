@@ -82,7 +82,7 @@
       </select>
     </div>
 
-    <div class="grid min-w-0 gap-3 md:col-span-2 sm:flex sm:items-center sm:justify-between">
+    <div class="flex min-w-0 flex-col-reverse gap-3 md:col-span-2 sm:flex-row sm:items-center sm:justify-between">
       <p
         *ngIf="mensagem"
         role="status"
@@ -92,13 +92,13 @@
         {{ mensagem }}
       </p>
 
-      <button
-        type="submit"
-        [disabled]="salvando || !titulo.trim() || !dataEvento || !perfilId"
-        class="min-h-11 w-full shrink-0 rounded-lg bg-green-800 px-5 py-3 font-semibold text-white transition-colors hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-      >
-        {{ salvando ? 'Processando...' : 'Cadastrar agenda' }}
-      </button>
+     <button
+  type="submit"
+  [disabled]="salvando || !titulo.trim() || !dataEvento || !perfilId"
+  class="min-h-11 w-full shrink-0 rounded-lg bg-green-800 px-5 py-3 font-semibold text-white transition-colors hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:ml-auto sm:w-auto"
+>
+  {{ salvando ? 'Processando...' : 'Cadastrar agenda' }}
+</button>
     </div>
   </form>
 </section>

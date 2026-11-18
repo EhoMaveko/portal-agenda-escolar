@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
 
-
 interface Agenda {
   id: number;
   perfil_id: number;

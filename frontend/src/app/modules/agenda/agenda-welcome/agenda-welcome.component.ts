@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
+
   templateUrl: './agenda-welcome.component.html',
 })
 export class AgendaWelcomeComponent implements OnInit, OnDestroy {

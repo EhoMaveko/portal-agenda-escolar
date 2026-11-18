@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { interval, startWith, switchMap, Subscription } from 'rxjs';
+import { COMMONS_MODULES } from '../../../shared';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({
-  imports: [],
+
+  imports: [COMMONS_MODULES],
   templateUrl: './agenda-reports.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -97,5 +99,5 @@ private acompanharRelatorio(id: string): void {
         this.solicitandoRelatorio = false;
       }
     });
-  }
+}
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
-import { ChangeDetectionStrategy } from '@angular/core';
+
 
 interface Agenda {
   id: number;
@@ -26,7 +26,7 @@ interface Resposta {
 
   imports: [COMMONS_MODULES, ListAgendaComponent],
   templateUrl: './agenda-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class AgendaListComponent implements OnInit {
 

@@ -1,8 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
+import { FormAgendaComponent } from '../components/form-agenda/form-agenda.component';
 
 @Component({
-  imports: [COMMONS_MODULES],
-  templateUrl: './agenda-create.component.html',
+  selector: 'app-agenda-create',
+  imports: [COMMONS_MODULES, FormAgendaComponent],
+  templateUrl: './agenda-create.component.html'
 })
-export class AgendaCreateComponent {}
+export class AgendaCreateComponent implements OnInit {
+  entered = false;
+
+  ngOnInit(): void {
+    requestAnimationFrame(() => {
+      this.entered = true;
+    });
+  }
+}
+

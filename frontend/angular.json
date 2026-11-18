@@ -9,7 +9,15 @@
   "projects": {
     "frontend": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+        "skipTests": true,
+        "style": "none",
+        "type": "component"
+  }
+
+
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -19,9 +27,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "styles": [
-              "src/styles.css"
-            ],
+
             "assets": [
                 {
                  "glob": "**/*",

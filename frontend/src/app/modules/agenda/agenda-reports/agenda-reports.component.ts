@@ -12,15 +12,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AgendaReportsComponent {
+  protected solicitandoRelatorio = false;
+  protected mensagemRelatorio = '';
+  protected erroRelatorio = false;
+
   private readonly http = inject(HttpClient);
   private pollingSubscription?: Subscription;
 
-  solicitandoRelatorio = false;
-  mensagemRelatorio = '';
-  erroRelatorio = false;
 
-
-solicitarResumoDsa(): void {
+public onSolicitarResumoDsa(): void {
   this.solicitandoRelatorio = true;
   this.mensagemRelatorio = '';
   this.erroRelatorio = false;
@@ -58,7 +58,6 @@ private acompanharRelatorio(id: string): void {
       switchMap(() =>
         this.http.get<{
           status: string;
-          url_download?: string;
         }>(
           `http://localhost:8000/api/relatorios/resumo-dsa/${id}`
         )
@@ -67,14 +66,9 @@ private acompanharRelatorio(id: string): void {
     .subscribe({
       next: (resposta) => {
 
-        if (resposta.status === 'concluido' && resposta.url_download) {
+        if (resposta.status === 'concluido') {
           this.pollingSubscription?.unsubscribe();
-
-          this.mensagemRelatorio = 'Relatório pronto! Iniciando download...';
-
-          window.location.href = resposta.url_download;
-
-          this.solicitandoRelatorio = false;
+          this.baixarRelatorio(id);
         }
 
         if (resposta.status === 'erro') {
@@ -99,5 +93,30 @@ private acompanharRelatorio(id: string): void {
         this.solicitandoRelatorio = false;
       }
     });
+}
+
+private baixarRelatorio(id: string): void {
+  this.http.get(
+    `http://localhost:8000/api/relatorios/resumo-dsa/${id}/download`,
+    { responseType: 'blob' }
+  ).subscribe({
+    next: (arquivo) => {
+      const url = URL.createObjectURL(arquivo);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'resumo-dsa.txt';
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+
+      this.mensagemRelatorio = 'Relatório baixado com sucesso.';
+      this.solicitandoRelatorio = false;
+    },
+    error: (erro) => {
+      console.error('Erro ao baixar relatório:', erro);
+      this.mensagemRelatorio = 'Não foi possível baixar o relatório.';
+      this.erroRelatorio = true;
+      this.solicitandoRelatorio = false;
+    }
+  });
 }
 }

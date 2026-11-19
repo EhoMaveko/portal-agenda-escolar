@@ -1,8 +1,17 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
+
 import { COMMONS_MODULES } from '../../../shared';
-import { FormAgendaComponent, Perfil } from '../components/form-agenda/form-agenda.component';
+import {
+  FormAgendaComponent,
+  Perfil,
+} from '../components/form-agenda/form-agenda.component';
 
 @Component({
   imports: [COMMONS_MODULES, FormAgendaComponent],
@@ -11,41 +20,43 @@ import { FormAgendaComponent, Perfil } from '../components/form-agenda/form-agen
 })
 export class AgendaCreateComponent implements OnInit {
 
-  perfis: Perfil[] = [];
-  salvando = false;
-  mensagem = '';
+  protected perfis: Perfil[] = [];
+  protected salvando = false;
+  protected mensagem = '';
 
-  constructor(
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) {}
+  private _http: HttpClient;
+  private _cdr: ChangeDetectorRef;
 
-  ngOnInit(): void {
-    this.carregarPerfis();
+  constructor(http: HttpClient, cdr: ChangeDetectorRef) {
+    this._http = http;
+    this._cdr = cdr;
   }
 
-  carregarPerfis(): void {
-    this.http.get<Perfil[]>('http://localhost:8000/api/perfis')
+  public ngOnInit(): void {
+    this.onCarregarPerfis();
+  }
+
+  private onCarregarPerfis(): void {
+    this._http.get<Perfil[]>('http://localhost:8000/api/perfis')
       .subscribe({
         next: (dados) => {
           this.perfis = dados;
-          this.cdr.markForCheck();
+          this._cdr.markForCheck();
         },
         error: (erro) => {
           console.error('Erro ao buscar perfis:', erro);
           this.mensagem = 'Não foi possível carregar os perfis.';
-          this.cdr.markForCheck();
-        }
+          this._cdr.markForCheck();
+        },
       });
   }
 
-  cadastrarAgenda(dados: {
+  public onCadastrarAgenda(dados: {
     titulo: string;
     descricao: string;
     dataEvento: string;
     perfilId: number;
   }): void {
-
     this.salvando = true;
     this.mensagem = '';
 
@@ -54,24 +65,24 @@ export class AgendaCreateComponent implements OnInit {
       titulo: dados.titulo,
       descricao: dados.descricao,
       data_evento: dados.dataEvento,
-      status: 'ativo'
+      status: 'ativo',
     };
 
-    this.http.post(
+    this._http.post(
       'http://localhost:8000/api/agendas',
       novaAgenda
     ).subscribe({
       next: () => {
         this.mensagem = 'Salvo com sucesso!';
         this.salvando = false;
-        this.cdr.markForCheck();
+        this._cdr.markForCheck();
       },
       error: (erro) => {
         console.error('Erro ao cadastrar agenda:', erro);
         this.mensagem = 'Não foi possível cadastrar a agenda.';
         this.salvando = false;
-        this.cdr.markForCheck();
-      }
+        this._cdr.markForCheck();
+      },
     });
   }
 }

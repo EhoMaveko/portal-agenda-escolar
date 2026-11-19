@@ -5,7 +5,7 @@
           [agendas]="agendas"
           [carregando]="carregando"
           [erro]="erro"
-          (selecionar)="selecionarAgenda($event)"
+          (selecionar)="onSelecionarAgenda($event)"
         ></app-list-agenda>
       </section>
 
@@ -23,7 +23,7 @@
           </p>
         </div>
 
-        <form class="min-w-0 space-y-4" (ngSubmit)="enviarResposta()">
+        <form class="min-w-0 space-y-4" (ngSubmit)="onEnviarResposta()">
           <div class="min-w-0">
             <label for="nomeAluno" class="mb-1 block font-medium">
               Nome do aluno *

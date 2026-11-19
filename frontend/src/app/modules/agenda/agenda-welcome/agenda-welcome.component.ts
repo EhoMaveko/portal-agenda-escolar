@@ -4,14 +4,16 @@ import { Router } from '@angular/router';
 @Component({
 
   templateUrl: './agenda-welcome.component.html',
+
+
 })
 export class AgendaWelcomeComponent implements OnInit, OnDestroy {
-  private router = inject(Router);
+  protected isLeaving = false;
 
-  isLeaving = false;
+  private readonly router = inject(Router);
   private timeout: ReturnType<typeof setTimeout> | undefined;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.timeout = setTimeout(() => {
       this.isLeaving = true;
 
@@ -22,7 +24,7 @@ export class AgendaWelcomeComponent implements OnInit, OnDestroy {
     }, 2000);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     clearTimeout(this.timeout);
   }
 }

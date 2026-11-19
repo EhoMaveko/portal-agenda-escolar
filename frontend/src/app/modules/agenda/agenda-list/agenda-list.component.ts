@@ -29,44 +29,47 @@ interface Resposta {
 })
 export class AgendaListComponent implements OnInit {
 
-  agendas: Agenda[] = [];
-  carregando = true;
+  protected agendas: Agenda[] = [];
+  protected carregando = true;
 
-  erro = '';
+  protected erro = '';
 
-  perfis: { id: number; nome: string; tipo: string }[] = [];
+  protected perfis: { id: number; nome: string; tipo: string }[] = [];
 
-  novoTitulo = '';
-  novaDescricao = '';
-  novaDataEvento = '';
-  novoPerfilId = 1;
+  protected novoTitulo = '';
+  protected novaDescricao = '';
+  protected novaDataEvento = '';
+  protected novoPerfilId = 1;
 
-  salvando = false;
-  mensagem = '';
+  protected salvando = false;
+  protected mensagem = '';
 
-  agendaSelecionadaId: number | null = null;
-  respostas: Resposta[] = [];
+  protected agendaSelecionadaId: number | null = null;
+  protected respostas: Resposta[] = [];
 
-  nomeAluno = '';
-  comentarioResposta = '';
-  arquivoSelecionado: File | null = null;
+  protected nomeAluno = '';
+  protected comentarioResposta = '';
+  protected arquivoSelecionado: File | null = null;
 
-  carregandoRespostas = false;
-  enviandoResposta = false;
-  mensagemResposta = '';
+  protected carregandoRespostas = false;
+  protected enviandoResposta = false;
+  protected mensagemResposta = '';
 
-  solicitandoRelatorio = false;
-  mensagemRelatorio = '';
-  erroRelatorio = false;
+  protected solicitandoRelatorio = false;
+  protected mensagemRelatorio = '';
+  protected erroRelatorio = false;
 
 
-  constructor(private http: HttpClient) {
+  private readonly http: HttpClient;
+
+  constructor(http: HttpClient) {
+    this.http = http;
 
 
 
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.http.get<Agenda[]>('http://localhost:8000/api/agendas')
       .subscribe({
         next: (dados) => {
@@ -96,7 +99,7 @@ export class AgendaListComponent implements OnInit {
     });
   }
 
-      cadastrarAgenda(dados?: {
+  public onCadastrarAgenda(dados?: {
         titulo: string;
         descricao: string;
         dataEvento: string;
@@ -145,7 +148,7 @@ export class AgendaListComponent implements OnInit {
       }
 
 
-  selecionarAgenda(agendaId: number): void {
+  public onSelecionarAgenda(agendaId: number): void {
     this.agendaSelecionadaId = agendaId;
     this.respostas = [];
     this.mensagemResposta = '';
@@ -155,7 +158,7 @@ export class AgendaListComponent implements OnInit {
     this.carregarRespostas(agendaId);
   }
 
-  carregarRespostas(agendaId: number): void {
+  private carregarRespostas(agendaId: number): void {
     this.carregandoRespostas = true;
 
     this.http.get<Resposta[]>(
@@ -173,12 +176,12 @@ export class AgendaListComponent implements OnInit {
     });
   }
 
-  onArquivoSelecionado(event: Event): void {
+  public onArquivoSelecionado(event: Event): void {
     const campo = event.target as HTMLInputElement;
     this.arquivoSelecionado = campo.files?.[0] ?? null;
   }
 
-  enviarResposta(): void {
+  public onEnviarResposta(): void {
     this.mensagemResposta = '';
 
     if (this.agendaSelecionadaId === null) {

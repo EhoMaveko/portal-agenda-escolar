@@ -1,0 +1,32 @@
+@font-face {
+  font-display: swap;
+  font-family: Caveat;
+  font-style: normal;
+  font-weight: 400 700;
+  src: url(https://s.educacaoadventista.org.br/fontes/caveat/cyrillic-ext.woff2) format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: Caveat;
+  font-style: normal;
+  font-weight: 400 700;
+  src: url(https://s.educacaoadventista.org.br/fontes/caveat/cyrillic.woff2) format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: Caveat;
+  font-style: normal;
+  font-weight: 400 700;
+  src: url(https://s.educacaoadventista.org.br/fontes/caveat/latin-ext.woff2) format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: Caveat;
+  font-style: normal;
+  font-weight: 400 700;
+  src: url(https://s.educacaoadventista.org.br/fontes/caveat/latin.woff2) format('woff2');
+}
+
+.font-caveat {
+  font-family: Caveat, cursive;
+}

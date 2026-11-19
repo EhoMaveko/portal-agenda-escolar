@@ -1,18 +1,18 @@
 
-<section class="min-w-0 rounded-xl inset-shadow-sm inset-shadow-black/20 bg-purple-50 p-4 shadow-sm sm:p-6">
+<section class="min-w-0 rounded-xl inset-shadow-sm inset-shadow-black/20 --color-base-service-chave3-50 p-4 shadow-sm sm:p-6">
   <div class="mb-5">
-    <h2 class="text-xl font-bold text-green-900">
+    <h2 class="text-xl font-bold --color-title">
       Nova agenda
     </h2>
 
-    <p class="mt-1 text-sm text-gray-600">
+    <p class="mt-1 text-sm --color-subtitile">
       Preencha os dados para cadastrar um evento escolar.
     </p>
   </div>
 
   <form
     class="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2"
-    (ngSubmit)="enviarFormulario()"
+    (ngSubmit)="onEnviarFormulario()"
   >
     <div class="grid min-w-0 gap-2">
       <label for="titulo" class="font-medium text-gray-700">

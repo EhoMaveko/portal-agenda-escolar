@@ -1,0 +1,243 @@
+.ck-powered-by {
+  display: none !important;
+}
+
+.ck-editor--readonly {
+  .ck-content,
+  .ck-editor__main {
+    min-height: 0;
+  }
+}
+
+.preview-content img,
+.preview-content .math-tex {
+  vertical-align: middle;
+  display: inline-block;
+  height: 1.2em !important;
+}
+
+.ck-content .math-tex,
+.ck-content .math-tex img,
+.ck-content math,
+.ck-content .ck-math-inline {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  max-height: none !important;
+}
+
+.ck-content annotation {
+  display: none !important;
+}
+
+.ck-content .math-tex,
+.ck-content .math-tex img {
+  height: 1em !important;
+  width: auto !important;
+}
+
+.ck-content img.math-tex {
+  min-width: 2em !important;
+  min-height: 1.5em !important;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.ck-content img.image_resized {
+  min-width: 2em !important;
+  min-height: 1.5em !important;
+  max-width: 100% !important;
+}
+
+.ck-content .fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1em !important;
+  line-height: 1.2 !important;
+  text-align: center;
+}
+
+.ck-content table {
+  width: 100% !important;
+}
+
+.ck-content table img {
+  display: block !important;
+  height: auto !important;
+  max-width: 100% !important;
+  width: auto !important;
+}
+
+.ck-content {
+  display: block;
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.ck-content * {
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+.ck-content .fraction sup,
+.ck-content .fraction sub {
+  font-size: 0.9em !important;
+  line-height: 1 !important;
+  vertical-align: baseline !important;
+  position: relative !important;
+}
+
+.ck-content .fraction img {
+  height: 1em !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+.ck-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  vertical-align: middle !important;
+}
+
+.ck-content sup,
+.ck-content sub {
+  font-size: 0.9em !important;
+  vertical-align: baseline !important;
+  display: inline-block;
+}
+
+.ck-content img,
+.ck-content .math-tex {
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.ck-content ul,
+.ck-content ol {
+  list-style-position: outside;
+  padding-left: 2.5rem;
+  margin: 0;
+}
+
+.ck-content li {
+  display: list-item;
+}
+
+.ck-content ul {
+  list-style-type: disc;
+}
+
+.ck-content ol {
+  list-style-type: decimal;
+}
+
+.ck-editor {
+  display: block;
+
+  &__main,
+  &__editable {
+    display: block;
+    min-height: 12rem;
+    max-height: fit-content;
+
+    ul li,
+    ol li {
+      margin-left: 2rem;
+    }
+
+    td {
+      display: table-cell;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .ck-read-only {
+      border: none !important;
+    }
+  }
+
+  .ck-toolbar__items {
+    flex-wrap: wrap !important;
+  }
+
+  .ck-editor__editable {
+    font-size: 16px;
+    font-family: sans-serif;
+
+    strong,
+    b {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: bold;
+    }
+
+    em,
+    i {
+      font-family: inherit;
+      font-size: inherit;
+      font-style: italic;
+    }
+
+    u {
+      font-family: inherit;
+      font-size: inherit;
+      text-decoration: underline;
+    }
+
+    s,
+    del {
+      font-family: inherit;
+      font-size: inherit;
+      text-decoration: line-through;
+    }
+
+    mark {
+      font-size: inherit;
+    }
+
+    strong u,
+    u strong {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 22px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+}
+
+/* ============================= */
+/* IMPRESSÃO (CRÍTICO)           */
+/* ============================= */
+
+// @media print {
+//   .ck-content {
+//     overflow: visible !important;
+//   }
+
+//   .ck-content ul {
+//     list-style-type: disc !important;
+//   }
+
+//   .ck-content ol {
+//     list-style-type: decimal !important;
+//   }
+// }

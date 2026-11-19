@@ -1,0 +1,18 @@
+@font-face {
+  font-display: swap;
+  font-family: Escolar;
+  font-style: normal;
+  font-weight: normal;
+  src: url(https://s.educacaoadventista.org.br/fontes/escolar/Escolar.ttf) format('truetype');
+}
+@font-face {
+  font-display: swap;
+  font-family: Escolar;
+  font-style: normal;
+  font-weight: bold;
+  src: url(https://s.educacaoadventista.org.br/fontes/escolar/Escolar-Bold.ttf) format('truetype');
+}
+
+.font-escolar {
+  font-family: Escolar, cursive;
+}

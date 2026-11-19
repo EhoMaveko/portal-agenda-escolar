@@ -1,0 +1,195 @@
+@font-face {
+  font-family: 'Goldplay Black It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.eot);
+  src: local('Goldplay Black It'), local('Goldplay-BlackIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BlackIt.svg#Goldplay-BlackIt) format('svg');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay Bold It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.eot);
+  src: local('Goldplay Bold It'), local('Goldplay-BoldIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-BoldIt.svg#Goldplay-BoldIt) format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.eot);
+  src: local('Goldplay Black'), local('Goldplay-Black'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Black.svg#Goldplay-Black) format('svg');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay Light It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.eot);
+  src: local('Goldplay Light It'), local('Goldplay-LightIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-LightIt.svg#Goldplay-LightIt) format('svg');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.eot);
+  src: local('Goldplay Light'), local('Goldplay-Light'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Light.svg#Goldplay-Light) format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.eot);
+  src: local('Goldplay Bold'), local('Goldplay-Bold'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Bold.svg#Goldplay-Bold) format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay Medium It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.eot);
+  src: local('Goldplay Medium It'), local('Goldplay-MediumIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-MediumIt.svg#Goldplay-MediumIt) format('svg');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay SemiBold It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.eot);
+  src: local('Goldplay SemiBold It'), local('Goldplay-SemiBoldIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBoldIt.svg#Goldplay-SemiBoldIt) format('svg');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.eot);
+  src: local('Goldplay Regular'), local('Goldplay-Regular'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Regular.svg#Goldplay-Regular) format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.eot);
+  src: local('Goldplay Regular It'), local('Goldplay-RegularIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-RegularIt.svg#Goldplay-RegularIt) format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.eot);
+  src: local('Goldplay Medium'), local('Goldplay-Medium'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Medium.svg#Goldplay-Medium) format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.eot);
+  src: local('Goldplay SemiBold'), local('Goldplay-SemiBold'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-SemiBold.svg#Goldplay-SemiBold) format('svg');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Goldplay Thin It';
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.eot);
+  src: local('Goldplay Thin It'), local('Goldplay-ThinIt'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-ThinIt.svg#Goldplay-ThinIt) format('svg');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Goldplay;
+  src: url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.eot);
+  src: local('Goldplay Thin'), local('Goldplay-Thin'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.eot?#iefix) format('embedded-opentype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.woff2) format('woff2'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.woff) format('woff'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.ttf) format('truetype'),
+    url(https://s.educacaoadventista.org.br/fontes/goldplay/Goldplay-Thin.svg#Goldplay-Thin) format('svg');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}

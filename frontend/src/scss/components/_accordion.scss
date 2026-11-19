@@ -1,0 +1,7 @@
+@layer accordion {
+  .accordion {
+    &--hidden * {
+      @apply invisible!;
+    }
+  }
+}

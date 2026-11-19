@@ -40,24 +40,25 @@ class RelatorioController extends Controller
             ]);
         }
 
-        $url = Storage::disk('s3_public')->temporaryUrl(
-            $relatorio["caminho"],
-            now()->addMinutes(5),
-            [
-                'ResponseContentDisposition' =>
-                    'attachment; filename="resumo-dsa.txt"',
-            ]
-        );
-
-        $url = str_replace(
-            'http://minio:9002',
-            'http://localhost:9002',
-                $url
-        );
-
         return response()->json([
             'status' => 'concluido',
-            'url_download' => $url
         ]);
+    }
+
+    public function baixarResumoDsa(string $id)
+    {
+        $relatorio = Cache::get("relatorio:{$id}");
+
+        if (!$relatorio || $relatorio['status'] !== 'concluido') {
+            return response()->json([
+                'erro' => 'Relatório não encontrado, expirado ou ainda não concluído.'
+            ], 404);
+        }
+
+        return Storage::disk('s3')->download(
+            $relatorio['caminho'],
+            'resumo-dsa.txt',
+            ['Content-Type' => 'text/plain; charset=UTF-8']
+        );
     }
 }

@@ -21,6 +21,10 @@ Route::get(
     '/relatorios/resumo-dsa/{id}',
     [RelatorioController::class, 'consultarResumoDsa']
 );
+Route::get(
+    '/relatorios/resumo-dsa/{id}/download',
+    [RelatorioController::class, 'baixarResumoDsa']
+);
 
 
 Route::get('/agendas', [AgendaController::class, 'index']);

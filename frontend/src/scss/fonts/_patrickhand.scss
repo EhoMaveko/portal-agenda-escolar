@@ -1,0 +1,25 @@
+@font-face {
+  font-display: swap;
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://s.educacaoadventista.org.br/fontes/patrickhand/vietnamese.woff2) format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://s.educacaoadventista.org.br/fontes/patrickhand/latin-ext.woff2) format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Patrick Hand';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://s.educacaoadventista.org.br/fontes/patrickhand/latin.woff2) format('woff2');
+}
+
+.font-patrickhand {
+  font-family: 'Patrick Hand', cursive;
+}

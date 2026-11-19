@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../../shared';
 
 export interface Perfil {
@@ -12,30 +13,34 @@ export interface Perfil {
   imports: [COMMONS_MODULES],
   templateUrl: './form-agenda.component.html',
 })
-export class FormAgendaComponent {
-  @Input() perfis: Perfil[] = [];
-  @Input() salvando = false;
-  @Input() mensagem = '';
+export class FormAgendaComponent implements OnInit {
+  @Input() public perfis: Perfil[] = [];
+  @Input() public salvando = false;
+  @Input() public mensagem = '';
 
-  @Output() cadastrar = new EventEmitter<{
+  @Output() public cadastrar = new EventEmitter<{
     titulo: string;
     descricao: string;
     dataEvento: string;
     perfilId: number;
   }>();
 
-  titulo = '';
-  descricao = '';
-  dataEvento = '';
-  perfilId = 0;
+  protected titulo = '';
+  protected descricao = '';
+  protected dataEvento = '';
+  protected perfilId = 0;
 
-  ngOnChanges(): void {
-    if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
-      this.perfilId = this.perfis[0].id;
-    }
+  public ngOnInit(): void {
+  if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
+    this.perfilId = this.perfis[0].id;
   }
 
-  enviarFormulario(): void {
+  if (this.mensagem === 'Salvo com sucesso!') {
+    this._limparFormulario();
+  }
+}
+
+  public onEnviarFormulario(): void {
     if (!this.titulo.trim() || !this.dataEvento || !this.perfilId) {
       return;
     }
@@ -48,7 +53,7 @@ export class FormAgendaComponent {
     });
   }
 
-  limparFormulario(): void {
+  private _limparFormulario(): void {
     this.titulo = '';
     this.descricao = '';
     this.dataEvento = '';

@@ -1,0 +1,426 @@
+@theme {
+  --color-light: var(--light);
+  --color-dark: var(--dark);
+  --color-darker: var(--darker);
+  --color-theme: var(--color-theme-500);
+  --color-theme-50: var(--color-theme-50);
+  --color-theme-100: var(--color-theme-100);
+  --color-theme-200: var(--color-theme-200);
+  --color-theme-300: var(--color-theme-300);
+  --color-theme-400: var(--color-theme-400);
+  --color-theme-500: var(--color-theme-500);
+  --color-theme-600: var(--color-theme-600);
+  --color-theme-700: var(--color-theme-700);
+  --color-theme-800: var(--color-theme-800);
+  --color-theme-900: var(--color-theme-900);
+  --color-theme-950: var(--color-theme-950);
+}
+@theme {
+  --color-theme-primary: var(--color-theme-primary);
+  --color-theme-secondary: var(--color-theme-secondary);
+  --color-theme-light: var(--color-theme-light);
+  --color-theme-lighter: var(--color-theme-lighter);
+  --color-theme-dark: var(--color-theme-dark);
+  --color-theme-darker: var(--color-theme-darker);
+  --color-theme-contrast: var(--color-theme-contrast);
+}
+
+/* eclass */
+
+@source inline("bg-modules-{eclass}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-eclass-50: #fdf8ff;
+  --color-modules-eclass-100: #f2ebf7;
+  --color-modules-eclass-200: #dfceed;
+  --color-modules-eclass-300: #c8afe0;
+  --color-modules-eclass-400: #9a7dc9;
+  --color-modules-eclass-500: #6e52b2;
+  --color-modules-eclass-600: #5b42a1;
+  --color-modules-eclass-700: #432d85;
+  --color-modules-eclass-800: #301e6b;
+  --color-modules-eclass-900: #1d114f;
+  --color-modules-eclass-950: #0f0733;
+  --color-modules-eclass-light: #ebf3f5;
+  --color-modules-eclass-lighter: #ebf4f7;
+  --color-modules-eclass-dark: #041d36;
+  --color-modules-eclass-darker: #03162b;
+  --color-modules-eclass-contrast: #fff;
+}
+
+/* ============= */
+
+/* corporate-university */
+
+@source inline("bg-modules-{corporate-university}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-corporate-university-50: #f5fbfc;
+  --color-modules-corporate-university-100: #dfecf2;
+  --color-modules-corporate-university-200: #b6d1e0;
+  --color-modules-corporate-university-300: #8db2cc;
+  --color-modules-corporate-university-400: #4c79a6;
+  --color-modules-corporate-university-500: #1d4680;
+  --color-modules-corporate-university-600: #183c73;
+  --color-modules-corporate-university-700: #102d5e;
+  --color-modules-corporate-university-800: #0b214d;
+  --color-modules-corporate-university-900: #061538;
+  --color-modules-corporate-university-950: #020b24;
+  --color-modules-corporate-university-light: #ebf3f5;
+  --color-modules-corporate-university-lighter: #ebf4f7;
+  --color-modules-corporate-university-dark: #102d5e;
+  --color-modules-corporate-university-darker: #0b214d;
+  --color-modules-corporate-university-contrast: #fff;
+}
+
+/* ============= */
+
+/* ivca */
+
+@source inline("bg-modules-{ivca}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-ivca-50: #f5f5f5;
+  --color-modules-ivca-100: #e8e8e8;
+  --color-modules-ivca-200: #c8c6ce;
+  --color-modules-ivca-300: #9c9cad;
+  --color-modules-ivca-400: #575f7e;
+  --color-modules-ivca-500: #435374;
+  --color-modules-ivca-600: #3a4677;
+  --color-modules-ivca-700: #253357;
+  --color-modules-ivca-800: #182445;
+  --color-modules-ivca-900: #0d1633;
+  --color-modules-ivca-950: #060c21;
+  --color-modules-ivca-light: #f1f1f1;
+  --color-modules-ivca-lighter: #f1f1f1;
+  --color-modules-ivca-dark: #2b2b2b;
+  --color-modules-ivca-darker: #0d1633;
+  --color-modules-ivca-contrast: #fff;
+}
+
+/* ============= */
+
+/* academic */
+
+@source inline("bg-modules-{academic}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-academic-50: #fafbfc;
+  --color-modules-academic-100: #f5f6f9;
+  --color-modules-academic-200: #eceef4;
+  --color-modules-academic-300: #e2e4ee;
+  --color-modules-academic-400: #d7dae6;
+  --color-modules-academic-500: #c2c6d4;
+  --color-modules-academic-600: #9ea3b3;
+  --color-modules-academic-700: #7a7f8d;
+  --color-modules-academic-800: #555966;
+  --color-modules-academic-900: #30323f;
+  --color-modules-academic-950: #1a1b22;
+  --color-modules-academic-light: #d9e7eb;
+  --color-modules-academic-lighter: #dceaf0;
+  --color-modules-academic-dark: #03162b;
+  --color-modules-academic-darker: #020f1f;
+  --color-modules-academic-contrast: #fff;
+}
+
+/* ============= */
+
+/* school */
+
+@source inline("bg-modules-{school}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-school-50: #fffdf5;
+  --color-modules-school-100: #fffbe8;
+  --color-modules-school-200: #fff4c7;
+  --color-modules-school-300: #ffeca6;
+  --color-modules-school-400: #ffd663;
+  --color-modules-school-500: #ffb822;
+  --color-modules-school-600: #e69f1c;
+  --color-modules-school-700: #bf7a13;
+  --color-modules-school-800: #995a0c;
+  --color-modules-school-900: #733d07;
+  --color-modules-school-950: #4a2203;
+  --color-modules-school-light: #ebf3f5;
+  --color-modules-school-lighter: #ebf4f7;
+  --color-modules-school-dark: #041d36;
+  --color-modules-school-darker: #03162b;
+  --color-modules-school-contrast: #fff;
+}
+
+/* ============= */
+
+/* student */
+
+@source inline("bg-modules-{student}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-student-50: #f5fbfc;
+  --color-modules-student-100: #ebfaff;
+  --color-modules-student-200: #ccf0fc;
+  --color-modules-student-300: #aee5fc;
+  --color-modules-student-400: #70c8fa;
+  --color-modules-student-500: #36a3f7;
+  --color-modules-student-600: #2c8bde;
+  --color-modules-student-700: #1e6cba;
+  --color-modules-student-800: #134d94;
+  --color-modules-student-900: #0b3570;
+  --color-modules-student-950: #041d47;
+  --color-modules-student-light: #ebf3f5;
+  --color-modules-student-lighter: #ebf4f7;
+  --color-modules-student-dark: #041d36;
+  --color-modules-student-darker: #03162b;
+  --color-modules-student-contrast: #fff;
+}
+
+/* ============= */
+
+/* assessments-manager */
+
+@source inline("bg-modules-{assessments-manager}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-assessments-manager-50: #f2f7f4;
+  --color-modules-assessments-manager-100: #dfece2;
+  --color-modules-assessments-manager-200: #c1d9c8;
+  --color-modules-assessments-manager-300: #97bea4;
+  --color-modules-assessments-manager-400: #6a9d7d;
+  --color-modules-assessments-manager-500: #508a68;
+  --color-modules-assessments-manager-600: #37644b;
+  --color-modules-assessments-manager-700: #2c503d;
+  --color-modules-assessments-manager-800: #244132;
+  --color-modules-assessments-manager-900: #1f3529;
+  --color-modules-assessments-manager-950: #101e16;
+  --color-modules-assessments-manager-light: #ebf3f5;
+  --color-modules-assessments-manager-lighter: #ebf4f7;
+  --color-modules-assessments-manager-dark: #041d36;
+  --color-modules-assessments-manager-darker: #03162b;
+  --color-modules-assessments-manager-contrast: #fff;
+}
+
+/* ============= */
+
+/* educational-materials */
+
+@source inline("bg-modules-{educational-materials}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-educational-materials-50: #fffdf7;
+  --color-modules-educational-materials-100: #fcf7eb;
+  --color-modules-educational-materials-200: #faebd2;
+  --color-modules-educational-materials-300: #f7deb7;
+  --color-modules-educational-materials-400: #f0b981;
+  --color-modules-educational-materials-500: #ea9150;
+  --color-modules-educational-materials-600: #d47c42;
+  --color-modules-educational-materials-700: #b05c2c;
+  --color-modules-educational-materials-800: #8c411c;
+  --color-modules-educational-materials-900: #692a10;
+  --color-modules-educational-materials-950: #451707;
+  --color-modules-educational-materials-light: #ebf3f5;
+  --color-modules-educational-materials-lighter: #ebf4f7;
+  --color-modules-educational-materials-dark: #041d36;
+  --color-modules-educational-materials-darker: #03162b;
+  --color-modules-educational-materials-contrast: #fff;
+}
+
+/* ============= */
+
+/* learning-trails */
+
+@source inline("bg-modules-{learning-trails}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-learning-trails-50: #f5fcfb;
+  --color-modules-learning-trails-100: #dcf5ef;
+  --color-modules-learning-trails-200: #ace6d7;
+  --color-modules-learning-trails-300: #7fd4bc;
+  --color-modules-learning-trails-400: #36b58b;
+  --color-modules-learning-trails-500: #009358;
+  --color-modules-learning-trails-600: #00854b;
+  --color-modules-learning-trails-700: #006e3a;
+  --color-modules-learning-trails-800: #00592b;
+  --color-modules-learning-trails-900: #00421d;
+  --color-modules-learning-trails-950: #002b11;
+  --color-modules-learning-trails-light: #ebf3f5;
+  --color-modules-learning-trails-lighter: #ebf4f7;
+  --color-modules-learning-trails-dark: #041d36;
+  --color-modules-learning-trails-darker: #03162b;
+  --color-modules-learning-trails-contrast: #fff;
+}
+
+/* ============= */
+
+/* games */
+
+@source inline("bg-modules-{games}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-games-50: #fafcf2;
+  --color-modules-games-100: #f5fae6;
+  --color-modules-games-200: #e6f2c4;
+  --color-modules-games-300: #d5eba2;
+  --color-modules-games-400: #b1db63;
+  --color-modules-games-500: #8ccd2e;
+  --color-modules-games-600: #76b825;
+  --color-modules-games-700: #5b9918;
+  --color-modules-games-800: #427a10;
+  --color-modules-games-900: #2c5c09;
+  --color-modules-games-950: #193b04;
+  --color-modules-games-light: #ebf3f5;
+  --color-modules-games-lighter: #ebf4f7;
+  --color-modules-games-dark: #041d36;
+  --color-modules-games-darker: #03162b;
+  --color-modules-games-contrast: #fff;
+}
+
+/* ============= */
+
+/* pedagogical */
+
+@source inline("bg-modules-{pedagogical}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-pedagogical-50: #f2fafc;
+  --color-modules-pedagogical-100: #e6f5fa;
+  --color-modules-pedagogical-200: #c4e6f2;
+  --color-modules-pedagogical-300: #a2d5eb;
+  --color-modules-pedagogical-400: #62add9;
+  --color-modules-pedagogical-500: #2c85ca;
+  --color-modules-pedagogical-600: #2471b5;
+  --color-modules-pedagogical-700: #185796;
+  --color-modules-pedagogical-800: #103f78;
+  --color-modules-pedagogical-900: #092c5c;
+  --color-modules-pedagogical-950: #04183b;
+  --color-modules-pedagogical-light: #ebf3f5;
+  --color-modules-pedagogical-lighter: #ebf4f7;
+  --color-modules-pedagogical-dark: #041d36;
+  --color-modules-pedagogical-darker: #03162b;
+  --color-modules-pedagogical-contrast: #fff;
+}
+
+/* ============= */
+
+/* drive */
+
+@source inline("bg-modules-{drive}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-drive-50: #faf0f5;
+  --color-modules-drive-100: #f2e1e9;
+  --color-modules-drive-200: #e3b8c9;
+  --color-modules-drive-300: #d192a6;
+  --color-modules-drive-400: #ad5364;
+  --color-modules-drive-500: #892225;
+  --color-modules-drive-600: #7d1d20;
+  --color-modules-drive-700: #661316;
+  --color-modules-drive-800: #520c0f;
+  --color-modules-drive-900: #3d0708;
+  --color-modules-drive-950: #290303;
+  --color-modules-drive-light: #ebf3f5;
+  --color-modules-drive-lighter: #ebf4f7;
+  --color-modules-drive-dark: #041d36;
+  --color-modules-drive-darker: #03162b;
+  --color-modules-drive-contrast: #fff;
+}
+
+/* ============= */
+
+/* school-website */
+
+@source inline("bg-modules-{school-website}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-school-website-50: #fcf2ff;
+  --color-modules-school-website-100: #fae8ff;
+  --color-modules-school-website-200: #edc2fc;
+  --color-modules-school-website-300: #e0a0fa;
+  --color-modules-school-website-400: #c059f7;
+  --color-modules-school-website-500: #9816f4;
+  --color-modules-school-website-600: #8112db;
+  --color-modules-school-website-700: #650db8;
+  --color-modules-school-website-800: #490794;
+  --color-modules-school-website-900: #30046e;
+  --color-modules-school-website-950: #1d0247;
+  --color-modules-school-website-light: #ebf3f5;
+  --color-modules-school-website-lighter: #ebf4f7;
+  --color-modules-school-website-dark: #041d36;
+  --color-modules-school-website-darker: #03162b;
+  --color-modules-school-website-contrast: #000;
+}
+
+/* ============= */
+
+/* sky-english */
+
+@source inline("bg-modules-{sky-english}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-sky-english-50: #a836c9;
+  --color-modules-sky-english-100: #9830b8;
+  --color-modules-sky-english-200: #8c2ca8;
+  --color-modules-sky-english-300: #7e2599;
+  --color-modules-sky-english-400: #74208c;
+  --color-modules-sky-english-500: #6b1b82;
+  --color-modules-sky-english-600: #601775;
+  --color-modules-sky-english-700: #57136b;
+  --color-modules-sky-english-800: #541169;
+  --color-modules-sky-english-900: #4f0b63;
+  --color-modules-sky-english-950: #470859;
+  --color-modules-sky-english-light: #b405e8;
+  --color-modules-sky-english-lighter: #bf07f5;
+  --color-modules-sky-english-dark: #3b074a;
+  --color-modules-sky-english-darker: #350145;
+  --color-modules-sky-english-contrast: #000;
+}
+
+/* ============= */
+
+/* finance */
+
+@source inline("bg-modules-{finance}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-finance-50: #fcfafb;
+  --color-modules-finance-100: #f7f5f6;
+  --color-modules-finance-200: #ede6e9;
+  --color-modules-finance-300: #e0d3d9;
+  --color-modules-finance-400: #c9b5bb;
+  --color-modules-finance-500: #b39a9e;
+  --color-modules-finance-600: #a17c82;
+  --color-modules-finance-700: #85555c;
+  --color-modules-finance-800: #6b383f;
+  --color-modules-finance-900: #4f1f24;
+  --color-modules-finance-950: #330d11;
+  --color-modules-finance-light: #ebf3f5;
+  --color-modules-finance-lighter: #ebf4f7;
+  --color-modules-finance-dark: #041d36;
+  --color-modules-finance-darker: #03162b;
+  --color-modules-finance-contrast: #fff;
+}
+
+/* ============= */
+
+/* Sequence */
+
+@source inline("bg-modules-{sequence}-{50,{100..900..100},950,light,lighter,dark,darker,contrast}");
+
+@theme {
+  --color-modules-sequence-50: #f2fcfc;
+  --color-modules-sequence-100: #e6f8fa;
+  --color-modules-sequence-200: #c4eef2;
+  --color-modules-sequence-300: #a2e1e8;
+  --color-modules-sequence-400: #66c9d9;
+  --color-modules-sequence-500: #30b0c7;
+  --color-modules-sequence-600: #2797b3;
+  --color-modules-sequence-700: #1b7694;
+  --color-modules-sequence-800: #115778;
+  --color-modules-sequence-900: #0a3b59;
+  --color-modules-sequence-950: #04223b;
+  --color-modules-sequence-light: #ebf3f5;
+  --color-modules-sequence-lighter: #ebf4f7;
+  --color-modules-sequence-dark: #04223b;
+  --color-modules-sequence-darker: #04223b;
+  --color-modules-sequence-contrast: #fff;
+}
+
+/* ============= */

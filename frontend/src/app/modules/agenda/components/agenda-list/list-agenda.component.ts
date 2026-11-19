@@ -17,9 +17,9 @@ export interface Agenda {
   styleUrl: './list-agenda.component.css'
 })
 export class ListAgendaComponent {
-  @Input() agendas: Agenda[] = [];
-  @Input() carregando = false;
-  @Input() erro = '';
+  @Input() public agendas: Agenda[] = [];
+  @Input() public carregando = false;
+  @Input() public erro = '';
 
-  @Output() selecionar = new EventEmitter<number>();
+  @Output() public selecionar = new EventEmitter<number>();
 }

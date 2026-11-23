@@ -6,12 +6,13 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-
+import { TranslateService } from '@ngx-translate/core';
 import { COMMONS_MODULES } from '../../../shared';
 import {
   FormAgendaComponent,
   Perfil,
 } from '../components/form-agenda/form-agenda.component';
+
 
 @Component({
   imports: [COMMONS_MODULES, FormAgendaComponent],
@@ -26,10 +27,12 @@ export class AgendaCreateComponent implements OnInit {
 
   private _http: HttpClient;
   private _cdr: ChangeDetectorRef;
+  private _translate: TranslateService;
 
-  constructor(http: HttpClient, cdr: ChangeDetectorRef) {
+  constructor(http: HttpClient, cdr: ChangeDetectorRef, translate: TranslateService) {
     this._http = http;
     this._cdr = cdr;
+    this._translate = translate;
   }
 
   public ngOnInit(): void {
@@ -73,13 +76,13 @@ export class AgendaCreateComponent implements OnInit {
       novaAgenda
     ).subscribe({
       next: () => {
-        this.mensagem = 'Salvo com sucesso!';
+        this.mensagem = this._translate.instant('criarAgenda.agenda-sucess');
         this.salvando = false;
         this._cdr.markForCheck();
       },
       error: (erro) => {
         console.error('Erro ao cadastrar agenda:', erro);
-        this.mensagem = 'Não foi possível cadastrar a agenda.';
+        this.mensagem = this._translate.instant('criarAgenda.agenda-failed');
         this.salvando = false;
         this._cdr.markForCheck();
       },

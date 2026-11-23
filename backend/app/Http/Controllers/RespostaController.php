@@ -21,7 +21,7 @@ class RespostaController extends Controller
     {
         $dados = $request->validate([
             'aluno_nome' => 'required|string|max:255',
-            'comentario' => 'nullable|string',
+            'comentario' => 'required|string',
             'arquivo' => 'nullable|file|max:10240',
         ]);
 

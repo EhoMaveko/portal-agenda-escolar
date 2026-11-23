@@ -1,9 +1,11 @@
+
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 interface Agenda {
   id: number;
@@ -24,10 +26,8 @@ interface Resposta {
 }
 
 @Component({
-
-  imports: [COMMONS_MODULES, ListAgendaComponent],
+  imports: [COMMONS_MODULES, ListAgendaComponent, ReactiveFormsModule, TranslatePipe],
   templateUrl: './agenda-list.component.html',
-
 })
 export class AgendaListComponent implements OnInit {
 
@@ -50,9 +50,42 @@ export class AgendaListComponent implements OnInit {
   protected agendaSelecionadaId: number | null = null;
   protected respostas: Resposta[] = [];
 
-  protected nomeAluno = '';
-  protected comentarioResposta = '';
-  protected arquivoSelecionado: File | null = null;
+  protected formulario = new FormGroup({
+    nomeAluno: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+    }),
+    comentarioResposta: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+    }),
+    arquivoSelecionado: new FormControl<File | null>(null)
+  });
+
+  protected get nomeAluno(): string {
+    return this.formulario.controls.nomeAluno.value;
+  }
+
+  protected set nomeAluno(valor: string) {
+    this.formulario.controls.nomeAluno.setValue(valor);
+  }
+
+  protected get comentarioResposta(): string {
+    return this.formulario.controls.comentarioResposta.value;
+  }
+
+  protected set comentarioResposta(valor: string) {
+    this.formulario.controls.comentarioResposta.setValue(valor);
+  }
+
+  protected get arquivoSelecionado(): File | null {
+    return this.formulario.controls.arquivoSelecionado.value;
+  }
+
+  protected set arquivoSelecionado(valor: File | null) {
+    this.formulario.controls.arquivoSelecionado.setValue(valor);
+  }
+
 
   protected carregandoRespostas = false;
   protected enviandoResposta = false;
@@ -62,15 +95,29 @@ export class AgendaListComponent implements OnInit {
   protected mensagemRelatorio = '';
   protected erroRelatorio = false;
 
+  protected formatoData = 'dd/MM/yyyy HH:mm';
 
   private readonly http: HttpClient;
-  private readonly translate = inject(TranslateService);
+  private readonly translate: TranslateService;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, translate: TranslateService) {
     this.http = http;
+    this.translate = translate;
 
+    this.onAtualizarFormatoData();
 
+    this.translate.onLangChange.subscribe(() => {
+      this.onAtualizarFormatoData();
+    });
+  }
 
+  public onAtualizarFormatoData(): void {
+    const idioma = this.translate.currentLang();
+
+    this.formatoData =
+      idioma === 'en'
+        ? 'MM/dd/yyyy hh:mm a'
+        : 'dd/MM/yyyy HH:mm';
   }
 
   public ngOnInit(): void {
@@ -90,7 +137,7 @@ export class AgendaListComponent implements OnInit {
     this.http.get<{ id: number; nome: string; tipo: string }[]>(
       'http://localhost:8000/api/perfis'
     ).subscribe({
-      next: (dados: { id: number; nome: string; tipo: string }[]) => {
+      next: (dados) => {
         this.perfis = dados;
 
         if (dados.length > 0) {
@@ -104,53 +151,52 @@ export class AgendaListComponent implements OnInit {
   }
 
   public onCadastrarAgenda(dados?: {
-        titulo: string;
-        descricao: string;
-        dataEvento: string;
-        perfilId: number;
-      }): void {
-        this.mensagem = '';
+    titulo: string;
+    descricao: string;
+    dataEvento: string;
+    perfilId: number;
+  }): void {
+    this.mensagem = '';
 
-        const titulo = dados?.titulo ?? this.novoTitulo.trim();
-        const descricao = dados?.descricao ?? this.novaDescricao.trim();
-        const dataEvento = dados?.dataEvento ?? this.novaDataEvento;
-        const perfilId = dados?.perfilId ?? this.novoPerfilId;
+    const titulo = dados?.titulo ?? this.novoTitulo.trim();
+    const descricao = dados?.descricao ?? this.novaDescricao.trim();
+    const dataEvento = dados?.dataEvento ?? this.novaDataEvento;
+    const perfilId = dados?.perfilId ?? this.novoPerfilId;
 
-        if (!titulo || !dataEvento || !perfilId) {
-          this.mensagem = 'Preencha o título, a data e o perfil.';
-          return;
-        }
+    if (!titulo || !dataEvento || !perfilId) {
+      this.mensagem = 'Preencha o título, a data e o perfil.';
+      return;
+    }
 
-        this.salvando = true;
+    this.salvando = true;
 
-        const novaAgenda = {
-          perfil_id: perfilId,
-          titulo,
-          descricao,
-          data_evento: dataEvento,
-          status: 'ativo'
-        };
+    const novaAgenda = {
+      perfil_id: perfilId,
+      titulo,
+      descricao,
+      data_evento: dataEvento,
+      status: 'ativo'
+    };
 
-        this.http.post<Agenda>(
-          'http://localhost:8000/api/agendas',
-          novaAgenda
-        ).subscribe({
-          next: (agendaCriada) => {
-            this.agendas.push(agendaCriada);
-            this.novoTitulo = '';
-            this.novaDescricao = '';
-            this.novaDataEvento = '';
-            this.mensagem = 'Agenda cadastrada com sucesso!';
-            this.salvando = false;
-          },
-          error: (erro) => {
-            console.error('Erro ao cadastrar agenda:', erro);
-            this.mensagem = 'Não foi possível cadastrar a agenda.';
-            this.salvando = false;
-          }
-        });
+    this.http.post<Agenda>(
+      'http://localhost:8000/api/agendas',
+      novaAgenda
+    ).subscribe({
+      next: (agendaCriada) => {
+        this.agendas.push(agendaCriada);
+        this.novoTitulo = '';
+        this.novaDescricao = '';
+        this.novaDataEvento = '';
+        this.mensagem = 'Agenda cadastrada com sucesso!';
+        this.salvando = false;
+      },
+      error: (erro) => {
+        console.error('Erro ao cadastrar agenda:', erro);
+        this.mensagem = 'Não foi possível cadastrar a agenda.';
+        this.salvando = false;
       }
-
+    });
+  }
 
   public onSelecionarAgenda(agendaId: number): void {
     this.agendaSelecionadaId = agendaId;
@@ -172,6 +218,7 @@ export class AgendaListComponent implements OnInit {
     }
 
     this.excluindoAgendaId = agenda.id;
+
     this.http.delete<void>(`http://localhost:8000/api/agendas/${agenda.id}`).subscribe({
       next: () => {
         this.agendas = this.agendas.filter((item) => item.id !== agenda.id);
@@ -214,59 +261,63 @@ export class AgendaListComponent implements OnInit {
     this.arquivoSelecionado = campo.files?.[0] ?? null;
   }
 
-  public onEnviarResposta(): void {
-    this.mensagemResposta = '';
 
-    if (this.agendaSelecionadaId === null) {
-      this.mensagemResposta = 'Selecione uma agenda.';
-      return;
-    }
+public onEnviarResposta(): void {
+  this.mensagemResposta = '';
 
-    if (!this.nomeAluno.trim()) {
-      this.mensagemResposta = 'Informe o nome do aluno.';
-      return;
-    }
+  this.formulario.controls.nomeAluno.markAsTouched();
+  this.formulario.controls.comentarioResposta.markAsTouched();
 
-    const dados = new FormData();
-    dados.append('aluno_nome', this.nomeAluno.trim());
-    dados.append('comentario', this.comentarioResposta.trim());
-
-    if (this.arquivoSelecionado) {
-      dados.append('arquivo', this.arquivoSelecionado);
-    }
-
-    this.enviandoResposta = true;
-
-    this.http.post<Resposta>(
-      `http://localhost:8000/api/agendas/${this.agendaSelecionadaId}/respostas`,
-      dados
-    ).subscribe({
-      next: () => {
-        const agendaId = this.agendaSelecionadaId!;
-
-        this.nomeAluno = '';
-        this.comentarioResposta = '';
-        this.arquivoSelecionado = null;
-
-        this.mensagemResposta = 'Resposta enviada com sucesso!';
-        this.carregarRespostas(agendaId);
-        this.enviandoResposta = false;
-      },
-      error: (erro) => {
-        console.error('Erro ao enviar resposta:', erro);
-
-        if (erro.status === 422) {
-          this.mensagemResposta =
-            'Confira os campos preenchidos e o tamanho do arquivo (máximo 10 MB).';
-        } else {
-          this.mensagemResposta =
-            'Não foi possível enviar a resposta. Tente novamente.';
-        }
-
-        this.enviandoResposta = false;
-      }
-    });
+  if (this.agendaSelecionadaId === null) {
+    this.mensagemResposta = 'Selecione uma agenda.';
+    return;
   }
 
+  if (this.formulario.invalid) {
+    return;
+  }
+
+  const dados = new FormData();
+  dados.append('aluno_nome', this.nomeAluno.trim());
+  dados.append('comentario', this.comentarioResposta.trim());
+
+  if (this.arquivoSelecionado) {
+    dados.append('arquivo', this.arquivoSelecionado);
+  }
+
+  this.enviandoResposta = true;
+
+  this.http.post<Resposta>(
+    `http://localhost:8000/api/agendas/${this.agendaSelecionadaId}/respostas`,
+    dados
+  ).subscribe({
+    next: () => {
+      const agendaId = this.agendaSelecionadaId!;
+
+      this.formulario.reset({
+        nomeAluno: '',
+        comentarioResposta: '',
+        arquivoSelecionado: null
+      });
+
+      this.mensagemResposta = 'Resposta enviada com sucesso!';
+      this.carregarRespostas(agendaId);
+      this.enviandoResposta = false;
+    },
+    error: (erro) => {
+      console.error('Erro ao enviar resposta:', erro);
+
+      if (erro.status === 422) {
+        this.mensagemResposta =
+          'Confira os campos preenchidos e o tamanho do arquivo (máximo 10 MB).';
+      } else {
+        this.mensagemResposta =
+          'Não foi possível enviar a resposta. Tente novamente.';
+      }
+
+      this.enviandoResposta = false;
+    }
+  });
+}
 
 }

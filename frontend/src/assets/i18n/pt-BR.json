@@ -31,7 +31,11 @@
     "placeholder-titulo": "Ex.: Reunião de pais",
     "placeholder-descricao": "Detalhes do evento...",
     "cadastrar-agenda": "Cadastrar agenda",
-    "processando": "Processando..."
+    "processando": "Processando...",
+    "titulo-obrigatorio": "O título é obrigatório",
+    "data-obrigatoria":"A data e hora são obrigatórias",
+    "agenda-failed":"Não foi possível cadastrar a agenda.",
+    "agenda-sucess":"Agenda salva com sucesso"
   },
 
     "listaDeAgendas": {
@@ -60,7 +64,9 @@
     "respostas-enviadas": "Respostas já enviadas.",
     "carregando-respostas": "Carregando respostas...",
     "nenhuma-resposta": "Nenhuma resposta cadastrada para esta agenda.",
-    "resposta-enviada-em": "Resposta enviada em"
+    "resposta-enviada-em": "Resposta enviada em: {{ data }}",
+    "nome-obrigatorio": "O nome do aluno é obrigatório.",
+    "comentario-obrigatorio": "O comentário é obrigatório."
 
   }
 }

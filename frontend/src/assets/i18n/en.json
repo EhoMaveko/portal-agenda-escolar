@@ -31,7 +31,11 @@
     "placeholder-titulo": "E.g.: Parents' meeting",
     "placeholder-descricao": "Event details...",
     "cadastrar-agenda": "Create schedule",
-    "processando": "Processing..."
+    "processando": "Processing...",
+    "titulo-obrigatorio": "The title is required",
+    "data-obrigatoria":"Date and time are required",
+    "agenda-failed":"Unable to register the schedule",
+    "agenda-sucess":"Schedule sucessfully saved"
   },
 
     "listaDeAgendas": {
@@ -60,6 +64,9 @@
     "respostas-enviadas": "Responses Already Sent",
     "carregando-respostas": "Loading Responses...",
     "nenhuma-resposta": "No response registered for this schedule.",
-    "resposta-enviada-em": "Response sent on"
+    "resposta-enviada-em": "Response sent on {{ data }}",
+    "nome-obrigatorio": "The student's name is required.",
+    "comentario-obrigatorio": "The comment is required."
+
   }
 }

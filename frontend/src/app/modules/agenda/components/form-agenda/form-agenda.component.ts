@@ -5,11 +5,20 @@ import {
   Input,
   Output,
   OnInit,
+  OnChanges,
+  SimpleChanges,
   AnimationCallbackEvent
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+
 import { COMMONS_MODULES } from '../../../../shared';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateDirective } from '@ngx-translate/core';
 
 export interface Perfil {
   id: number;
@@ -19,10 +28,11 @@ export interface Perfil {
 
 @Component({
   selector: 'app-form-agenda',
-  imports: [COMMONS_MODULES, FormsModule],
+  imports: [COMMONS_MODULES, ReactiveFormsModule, TranslateDirective],
   templateUrl: './form-agenda.component.html',
 })
-export class FormAgendaComponent implements OnInit {
+export class FormAgendaComponent implements OnInit, OnChanges {
+
   @Input() public perfis: Perfil[] = [];
   @Input() public salvando = false;
   @Input() public mensagem = '';
@@ -34,24 +44,26 @@ export class FormAgendaComponent implements OnInit {
     perfilId: number;
   }>();
 
-  public animateForm(event: AnimationCallbackEvent): void {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
+  protected formulario = new FormGroup({
+    titulo: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
 
-    event.target.animate(
-      [
-        { opacity: 0, },
-        { opacity: 1, },
-      ],
-      { duration: 350, easing: 'ease-out' },
-    );
-  }
+    descricao: new FormControl('', {
+      nonNullable: true,
+    }),
 
-  protected titulo = '';
-  protected descricao = '';
-  protected dataEvento = '';
-  protected perfilId = 0;
+    dataEvento: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+
+    perfilId: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(1)],
+    }),
+  });
 
   protected idiomaAtual = 'pt-BR';
 
@@ -61,14 +73,39 @@ export class FormAgendaComponent implements OnInit {
 
   public ngOnInit(): void {
     this._definirIdiomaInicial();
+  }
 
-    if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
-      this.perfilId = this.perfis[0].id;
+  public ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['perfis'] && this.perfis.length > 0) {
+      const perfilAtual = this.formulario.controls.perfilId.value;
+
+      const perfilExiste = this.perfis.some(
+        perfil => perfil.id === perfilAtual
+      );
+
+      if (!perfilExiste) {
+        this.formulario.controls.perfilId.setValue(this.perfis[0].id);
+      }
     }
 
-    if (this.mensagem === 'Salvo com sucesso!') {
+    if (changes['mensagem'] && this.mensagem === 'Salvo com sucesso!') {
       this._limparFormulario();
     }
+  }
+
+  public animateForm(event: AnimationCallbackEvent): void {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    event.target.animate(
+      [
+        { opacity: 0 },
+        { opacity: 1 },
+      ],
+      { duration: 350, easing: 'ease-out' },
+    );
   }
 
   public onAlterarIdioma(idioma: string): void {
@@ -82,7 +119,6 @@ export class FormAgendaComponent implements OnInit {
 
     localStorage.setItem('idioma', idioma);
   }
-
 
   private _definirIdiomaInicial(): void {
     const idiomaSalvo = localStorage.getItem('idioma');
@@ -101,21 +137,27 @@ export class FormAgendaComponent implements OnInit {
   }
 
   public onEnviarFormulario(): void {
-    if (!this.titulo.trim() || !this.dataEvento || !this.perfilId) {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
       return;
     }
 
+    const dados = this.formulario.getRawValue();
+
     this.cadastrar.emit({
-      titulo: this.titulo.trim(),
-      descricao: this.descricao.trim(),
-      dataEvento: this.dataEvento,
-      perfilId: this.perfilId
+      titulo: dados.titulo.trim(),
+      descricao: dados.descricao.trim(),
+      dataEvento: dados.dataEvento,
+      perfilId: dados.perfilId,
     });
   }
 
   private _limparFormulario(): void {
-    this.titulo = '';
-    this.descricao = '';
-    this.dataEvento = '';
+    this.formulario.reset({
+      titulo: '',
+      descricao: '',
+      dataEvento: '',
+      perfilId: this.perfis[0]?.id ?? 0,
+    });
   }
 }

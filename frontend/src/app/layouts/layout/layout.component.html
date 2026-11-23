@@ -49,7 +49,7 @@
             />
           </svg>
         </span>
-        <span class="text-xs">Criar Agenda</span>
+        <span class="text-xs">{{ 'layout.criar-agenda' | translate }}</span>
       </button>
 
       <!-- Lista de agendas -->
@@ -65,7 +65,7 @@
             />
           </svg>
         </span>
-        <span class="text-xs">Lista de Agendas</span>
+        <span class="text-xs">{{ 'layout.lista-de-agendas' | translate }} </span>
       </button>
 
       <!-- Relatórios -->
@@ -95,7 +95,7 @@
           </svg>
         </span>
 
-        <span class="text-xs">Relatório</span>
+        <span class="text-xs">{{ 'layout.relatorio' | translate }}</span>
       </button>
     </nav>
 
@@ -131,7 +131,7 @@
         <div
           class="flex h-min w-min cursor-pointer items-center justify-center gap-2 bg-gray-200 rounded-md bg-modules-eclass-100 p-1.5"
         >
-          <div app-tooltip="Português" class="relative group w-9 cursor-pointer">
+          <div (click)="onSelecionarIdioma(1, 'pt-BR')" [ngClass]="itemAtivo === 1 ? 'opacity-100' : 'opacity-30'" app-tooltip="Português" class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100">
             <svg
               version="1.1"
               id="Layer_10"
@@ -191,9 +191,9 @@
             </span>
           </div>
 
-          <div
+          <button (click)="onSelecionarIdioma(2, 'en')" [ngClass]="itemAtivo === 2 ? 'opacity-100' : 'opacity-30'" app-tooltip="Inglês"
             app-tooltip="Inglês"
-            class="relative group w-9 cursor-pointer opacity-30 transition-opacity duration-300 hover:opacity-100"
+            class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100"
           >
             <svg
               id="Layer_1"
@@ -411,7 +411,7 @@
             >
               English
             </span>
-          </div>
+          </button>
         </div>
 
         <div class="flex items-center justify-center gap-5">
@@ -427,7 +427,7 @@
               />
             </svg>
 
-            <span class="text-xs font-normal text-violet-400"> Suporte </span>
+            <span class="text-xs font-normal text-violet-400"> {{ 'layout.suporte' | translate }} </span>
           </button>
         </div>
 
@@ -466,7 +466,7 @@
               />
             </svg>
 
-            <span class="text-xs font-regular text-violet-400"> Banners </span>
+            <span class="text-xs pt-1.5 font-regular text-violet-400"> {{ 'layout.banners' | translate }} </span>
           </button>
         </div>
 
@@ -485,7 +485,7 @@
                 ></path></svg
             ></svg-icon>
 
-            <span class="text-xs font-regular text-violet-400"> Serviços </span>
+            <span class="text-xs pt-1 font-regular text-violet-400"> {{ 'layout.servicos' | translate }} </span>
           </button>
         </div>
 

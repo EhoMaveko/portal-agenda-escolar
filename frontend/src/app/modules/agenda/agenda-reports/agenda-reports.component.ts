@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { interval, startWith, switchMap, Subscription } from 'rxjs';
 import { COMMONS_MODULES } from '../../../shared';
 import { ChangeDetectionStrategy } from '@angular/core';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 
@@ -17,6 +17,8 @@ export class AgendaReportsComponent {
   protected erroRelatorio = false;
 
   private readonly http = inject(HttpClient);
+  private readonly translate = inject(TranslateService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
   private pollingSubscription?: Subscription;
 
 
@@ -33,18 +35,18 @@ public onSolicitarResumoDsa(): void {
     {}
   ).subscribe({
     next: (resposta) => {
-      this.mensagemRelatorio = 'Relatório solicitado. Gerando arquivo...';
+      this.mensagemRelatorio = this.translate.instant('agendaReports.solicitado');
 
       this.acompanharRelatorio(resposta.id);
     },
     error: (erro) => {
       console.error('Erro ao solicitar relatório:', erro);
 
-      this.mensagemRelatorio =
-        'Não foi possível solicitar o relatório. Tente novamente.';
+      this.mensagemRelatorio = this.translate.instant('agendaReports.erroSolicitacao');
 
       this.erroRelatorio = true;
       this.solicitandoRelatorio = false;
+      this.changeDetector.markForCheck();
     }
   });
 }
@@ -74,11 +76,11 @@ private acompanharRelatorio(id: string): void {
         if (resposta.status === 'erro') {
           this.pollingSubscription?.unsubscribe();
 
-          this.mensagemRelatorio =
-            'Ocorreu um erro ao gerar o relatório.';
+          this.mensagemRelatorio = this.translate.instant('agendaReports.erroGeracao');
 
           this.erroRelatorio = true;
           this.solicitandoRelatorio = false;
+          this.changeDetector.markForCheck();
         }
       },
       error: (erro) => {
@@ -86,11 +88,11 @@ private acompanharRelatorio(id: string): void {
 
         this.pollingSubscription?.unsubscribe();
 
-        this.mensagemRelatorio =
-          'Não foi possível consultar o processamento do relatório.';
+        this.mensagemRelatorio = this.translate.instant('agendaReports.erroConsulta');
 
         this.erroRelatorio = true;
         this.solicitandoRelatorio = false;
+        this.changeDetector.markForCheck();
       }
     });
 }
@@ -108,14 +110,16 @@ private baixarRelatorio(id: string): void {
       link.click();
       setTimeout(() => URL.revokeObjectURL(url), 0);
 
-      this.mensagemRelatorio = 'Relatório baixado com sucesso.';
+      this.mensagemRelatorio = this.translate.instant('agendaReports.baixado');
       this.solicitandoRelatorio = false;
+      this.changeDetector.markForCheck();
     },
     error: (erro) => {
       console.error('Erro ao baixar relatório:', erro);
-      this.mensagemRelatorio = 'Não foi possível baixar o relatório.';
+      this.mensagemRelatorio = this.translate.instant('agendaReports.erroDownload');
       this.erroRelatorio = true;
       this.solicitandoRelatorio = false;
+      this.changeDetector.markForCheck();
     }
   });
 }

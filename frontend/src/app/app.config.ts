@@ -28,8 +28,8 @@ export const appConfig: ApplicationConfig = {
         prefix: './assets/i18n/',
         suffix: '.json'
       }),
-      lang: 'pt',
-      fallbackLang: 'pt'
+      lang: 'pt-BR',
+      fallbackLang: 'pt-BR'
     }),
 
     importProvidersFrom(AngularSvgIconModule.forRoot()),

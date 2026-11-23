@@ -36,6 +36,14 @@
         </p>
 
       <i class="pi pi-chevron-right text-sm text-gray-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-violet-600"></i>
+      <button
+        type="button"
+        (click)="$event.stopPropagation(); excluir.emit(agenda)"
+        [attr.aria-label]="'listaDeAgendas.excluir' | translate"
+        class="rounded-md px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-50"
+      >
+        {{ 'listaDeAgendas.excluir' | translate }}
+      </button>
     </div>
   </article>
 </div>

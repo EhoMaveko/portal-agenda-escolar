@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
 
 interface Agenda {
   id: number;
@@ -23,7 +25,7 @@ interface Resposta {
 
 @Component({
 
-  imports: [COMMONS_MODULES, ListAgendaComponent],
+  imports: [COMMONS_MODULES, ListAgendaComponent, TranslatePipe],
   templateUrl: './agenda-list.component.html',
 
 })
@@ -33,6 +35,7 @@ export class AgendaListComponent implements OnInit {
   protected carregando = true;
 
   protected erro = '';
+  protected excluindoAgendaId: number | null = null;
 
   protected perfis: { id: number; nome: string; tipo: string }[] = [];
 
@@ -61,6 +64,7 @@ export class AgendaListComponent implements OnInit {
 
 
   private readonly http: HttpClient;
+  private readonly translate = inject(TranslateService);
 
   constructor(http: HttpClient) {
     this.http = http;
@@ -156,6 +160,35 @@ export class AgendaListComponent implements OnInit {
     this.comentarioResposta = '';
     this.arquivoSelecionado = null;
     this.carregarRespostas(agendaId);
+  }
+
+  public onExcluirAgenda(agenda: AgendaLista): void {
+    const confirmacao = this.translate.instant('listaDeAgendas.confirmarExclusao', {
+      titulo: agenda.titulo,
+    });
+
+    if (!window.confirm(confirmacao) || this.excluindoAgendaId !== null) {
+      return;
+    }
+
+    this.excluindoAgendaId = agenda.id;
+    this.http.delete<void>(`http://localhost:8000/api/agendas/${agenda.id}`).subscribe({
+      next: () => {
+        this.agendas = this.agendas.filter((item) => item.id !== agenda.id);
+
+        if (this.agendaSelecionadaId === agenda.id) {
+          this.agendaSelecionadaId = null;
+          this.respostas = [];
+        }
+
+        this.excluindoAgendaId = null;
+      },
+      error: (erro) => {
+        console.error('Erro ao excluir agenda:', erro);
+        window.alert(this.translate.instant('listaDeAgendas.erroExclusao'));
+        this.excluindoAgendaId = null;
+      },
+    });
   }
 
   private carregarRespostas(agendaId: number): void {

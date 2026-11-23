@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { COMMONS_MODULES } from '../../shared';
 
 @Component({
-  imports: [COMMONS_MODULES, TranslatePipe],
+  imports: [COMMONS_MODULES],
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent {
@@ -11,14 +11,15 @@ export class LayoutComponent {
 
   constructor(private _translate: TranslateService) {
     const idiomaSalvo = localStorage.getItem('idioma') || 'pt-BR';
+
+    this.itemAtivo = idiomaSalvo === 'pt-BR' ? 1 : 2;
+
     this._translate.use(idiomaSalvo);
   }
 
-  public onSelecionarItem(item: number): void {
+  public onSelecionarIdioma(item: number, idioma: string): void {
     this.itemAtivo = item;
-  }
 
-  public onAlterarIdioma(idioma: string): void {
     this._translate.use(idioma).subscribe({
       next: () => console.log('Idioma alterado:', idioma),
       error: (erro) => console.error('Erro ao alterar idioma:', erro),

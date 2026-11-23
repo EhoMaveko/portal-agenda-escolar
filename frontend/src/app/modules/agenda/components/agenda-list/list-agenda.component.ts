@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { COMMONS_MODULES } from '../../../../shared';
-import { TranslatePipe } from '@ngx-translate/core';
+
 
 
 export interface Agenda {
@@ -14,7 +14,7 @@ export interface Agenda {
 
 @Component({
   selector: 'app-list-agenda',
-  imports: [COMMONS_MODULES, TranslatePipe],
+  imports: [COMMONS_MODULES],
   templateUrl: './list-agenda.component.html',
   styleUrl: './list-agenda.component.css'
 })

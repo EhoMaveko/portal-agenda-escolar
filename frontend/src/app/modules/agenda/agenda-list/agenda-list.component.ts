@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
 
 interface Agenda {
@@ -25,7 +25,7 @@ interface Resposta {
 
 @Component({
 
-  imports: [COMMONS_MODULES, ListAgendaComponent, TranslatePipe],
+  imports: [COMMONS_MODULES, ListAgendaComponent],
   templateUrl: './agenda-list.component.html',
 
 })

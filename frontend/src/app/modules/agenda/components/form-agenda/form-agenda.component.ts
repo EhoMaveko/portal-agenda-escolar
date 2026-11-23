@@ -7,9 +7,9 @@ import {
   OnInit,
   AnimationCallbackEvent
 } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { COMMONS_MODULES } from '../../../../shared';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface Perfil {
   id: number;
@@ -19,7 +19,7 @@ export interface Perfil {
 
 @Component({
   selector: 'app-form-agenda',
-  imports: [COMMONS_MODULES, TranslatePipe],
+  imports: [COMMONS_MODULES, FormsModule],
   templateUrl: './form-agenda.component.html',
 })
 export class FormAgendaComponent implements OnInit {

@@ -131,7 +131,7 @@
         <div
           class="flex h-min w-min cursor-pointer items-center justify-center gap-2 bg-gray-200 rounded-md bg-modules-eclass-100 p-1.5"
         >
-          <div (click)="onAlterarIdioma('pt-BR')" (click)="onSelecionarItem(1)" [ngClass]="itemAtivo === 1 ? 'opacity-100' : 'opacity-50'" app-tooltip="Português" class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100">
+          <div (click)="onSelecionarIdioma(1, 'pt-BR')" [ngClass]="itemAtivo === 1 ? 'opacity-100' : 'opacity-30'" app-tooltip="Português" class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100">
             <svg
               version="1.1"
               id="Layer_10"
@@ -191,7 +191,7 @@
             </span>
           </div>
 
-          <button (click)="onAlterarIdioma('en')" (click)="onSelecionarItem(2)" [ngClass]="itemAtivo === 2 ? 'opacity-100' : 'opacity-50'" app-tooltip="Inglês"
+          <button (click)="onSelecionarIdioma(2, 'en')" [ngClass]="itemAtivo === 2 ? 'opacity-100' : 'opacity-30'" app-tooltip="Inglês"
             app-tooltip="Inglês"
             class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100"
           >

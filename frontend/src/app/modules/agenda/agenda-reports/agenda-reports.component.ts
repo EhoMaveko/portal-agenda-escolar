@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { interval, startWith, switchMap, Subscription } from 'rxjs';
 import { COMMONS_MODULES } from '../../../shared';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 
-  imports: [COMMONS_MODULES, TranslatePipe],
+  imports: [COMMONS_MODULES],
   templateUrl: './agenda-reports.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

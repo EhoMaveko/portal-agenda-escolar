@@ -1,5 +1,5 @@
 {
-    "layout": {
+  "layout": {
     "banners": "Banners",
     "criar-agenda": "Create Schedule",
     "lista-de-agendas": "List of Schedules",
@@ -7,7 +7,6 @@
     "servicos": "Services",
     "suporte": "Support"
   },
-
   "agendaReports": {
     "titulo": "DSA Report",
     "descricao": "Generate a summary of schedules and their responses.",
@@ -20,7 +19,6 @@
     "baixado": "Report downloaded successfully.",
     "erroDownload": "Could not download the report."
   },
-
   "criarAgenda": {
     "titulo-pagina": "New Schedule",
     "subtitulo": "Fill in the details to register a school event.",
@@ -33,12 +31,13 @@
     "cadastrar-agenda": "Create schedule",
     "processando": "Processing...",
     "titulo-obrigatorio": "The title is required",
-    "data-obrigatoria":"Date and time are required",
-    "agenda-failed":"Unable to register the schedule",
-    "agenda-sucess":"Schedule sucessfully saved"
+    "titulo-minimo": "The title must have at least 3 characters",
+    "data-obrigatoria": "Date and time are required",
+    "agenda-failed": "Unable to register the schedule",
+    "agenda-sucess": "Schedule sucessfully saved",
+    "campos-invalidos":"There are mandatory fields that have not been filled out. Please check and try again."
   },
-
-    "listaDeAgendas": {
+  "listaDeAgendas": {
     "titulo-pagina": "Select a schedule",
     "subtitulo-pagina": "Choose a schedule from the list to view and send responses.",
     "ativo": "Active",
@@ -66,7 +65,8 @@
     "nenhuma-resposta": "No response registered for this schedule.",
     "resposta-enviada-em": "Response sent on {{ data }}",
     "nome-obrigatorio": "The student's name is required.",
-    "comentario-obrigatorio": "The comment is required."
-
+    "comentario-obrigatorio": "The comment is required.",
+    "nome-minimo": "The name must be at least 3 characters long.",
+    "comentario-minimo": "The comment must have at least 3 characters."
   }
 }

@@ -1,10 +1,8 @@
-
 <div class="px-4 py-4 sm:px-3 lg:px-3">
   <section
     (animate.enter)="animateForm($event)"
     class="min-w-0 rounded-xl inset-shadow-sm inset-shadow-black/20 --color-base-service-chave3-50 p-4 shadow-sm sm:p-6"
   >
-
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
         <h2 class="text-xl font-bold --color-title">
@@ -22,7 +20,6 @@
       (ngSubmit)="onEnviarFormulario()"
       class="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2"
     >
-
       <div class="grid min-w-0 gap-2">
         <label for="titulo" class="font-medium text-gray-700">
           {{ 'criarAgenda.titulo-formulario' | translate }} *
@@ -34,14 +31,30 @@
           formControlName="titulo"
           maxlength="255"
           [placeholder]="'criarAgenda.placeholder-titulo' | translate"
-          class="min-h-11 w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+          [ngClass]="{
+            'border-red-500 focus:ring-red-500':
+              formulario.controls.titulo.touched &&
+              formulario.controls.titulo.dirty &&
+              formulario.controls.titulo.invalid,
+            'border-gray-300 focus:ring-green-600':
+              !formulario.controls.titulo.invalid ||
+              !formulario.controls.titulo.touched ||
+              !formulario.controls.titulo.dirty,
+          }"
+          class="min-h-11 w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3
+       transition-all duration-200 ease-in-out
+       focus:outline-none focus:ring-2"
         />
 
         <p
-          *ngIf="formulario.controls.titulo.touched && formulario.controls.titulo.hasError('required')"
+          *ngIf="
+            formulario.controls.titulo.touched &&
+            formulario.controls.titulo.dirty &&
+            onObterErroTitulo(formulario.controls.titulo) as erro
+          "
           class="text-sm text-red-600"
-        translate>
-          criarAgenda.titulo-obrigatorio
+        >
+          {{ erro | translate }}
         </p>
       </div>
 
@@ -54,14 +67,31 @@
           id="dataEvento"
           type="datetime-local"
           formControlName="dataEvento"
-          class="min-h-11 w-full min-w-0 max-w-full rounded-lg border border-gray-300 bg-white p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+          [ngClass]="{
+            'border-red-500 focus:ring-red-500':
+              formulario.controls.dataEvento.touched &&
+              formulario.controls.dataEvento.dirty &&
+              formulario.controls.dataEvento.invalid,
+            'border-gray-300 focus:ring-green-600':
+              !formulario.controls.dataEvento.invalid ||
+              !formulario.controls.dataEvento.touched ||
+              !formulario.controls.dataEvento.dirty,
+          }"
+          class="min-h-11 w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3
+       transition-all duration-200 ease-in-out
+       focus:outline-none focus:ring-2"
         />
 
         <p
-          *ngIf="formulario.controls.dataEvento.touched && formulario.controls.dataEvento.hasError('required')"
+          *ngIf="
+            formulario.controls.dataEvento.touched &&
+            formulario.controls.dataEvento.dirty &&
+            formulario.controls.dataEvento.hasError('required')
+          "
           class="text-sm text-red-600"
-        translate>
-          criarAgenda.data-obrigatoria
+          translate
+        >
+          {{ 'criarAgenda.data-obrigatoria' | translate }}
         </p>
       </div>
 
@@ -75,7 +105,8 @@
           formControlName="descricao"
           rows="3"
           [placeholder]="'criarAgenda.placeholder-descricao' | translate"
-          class="w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+          class="w-full min-w-0 rounded-lg border border-gray-300 bg-white transition-all duration-200 ease-in-out
+       focus:outline-none focus:ring-2 p-3 focus:ring-green-600"
         ></textarea>
       </div>
 
@@ -89,28 +120,26 @@
           formControlName="perfilId"
           class="min-h-11 w-full min-w-0 rounded-lg border border-gray-300 bg-white p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
         >
-          <option [ngValue]="0" disabled>
-            Selecione um perfil
-          </option>
+          <option [ngValue]="0" disabled>Selecione um perfil</option>
 
-          <option
-            *ngFor="let perfil of perfis"
-            [ngValue]="perfil.id"
-          >
+          <option *ngFor="let perfil of perfis" [ngValue]="perfil.id">
             {{ perfil.nome }} ({{ perfil.tipo }})
           </option>
         </select>
 
         <p
-          *ngIf="formulario.controls.perfilId.touched && formulario.controls.perfilId.hasError('min')"
+          *ngIf="
+            formulario.controls.perfilId.touched && formulario.controls.perfilId.hasError('min')
+          "
           class="text-sm text-red-600"
         >
           Selecione um perfil.
         </p>
       </div>
 
-      <div class="flex min-w-0 flex-col-reverse gap-3 md:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-
+      <div
+        class="flex min-w-0 flex-col-reverse gap-3 md:col-span-2 sm:flex-row sm:items-center sm:justify-between"
+      >
         <p
           *ngIf="mensagem"
           role="status"
@@ -122,12 +151,10 @@
 
         <button
           type="submit"
-          [disabled]="salvando || formulario.invalid"
           class="min-h-11 w-full shrink-0 rounded-lg bg-green-800 px-5 py-3 font-semibold text-white transition-colors hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:ml-auto sm:w-auto"
         >
           {{ (salvando ? 'criarAgenda.processando' : 'criarAgenda.cadastrar-agenda') | translate }}
         </button>
-
       </div>
     </form>
   </section>

@@ -41,15 +41,31 @@
           data-1p-ignore="true"
           data-op-ignore="true"
           maxlength="255"
+          [ngClass]="{
+            'border-red-500 focus:ring-red-500':
+              formulario.controls.nomeAluno.touched &&
+              formulario.controls.nomeAluno.dirty &&
+              formulario.controls.nomeAluno.invalid,
+            'border-gray-300 focus:ring-green-600':
+              !formulario.controls.nomeAluno.invalid ||
+              !formulario.controls.nomeAluno.touched ||
+              !formulario.controls.nomeAluno.dirty,
+          }"
           placeholder="{{ 'enviarResposta.placeholder-nome-aluno' | translate }}"
-          class="w-full min-w-0 rounded-lg border p-3"
+          class="w-full min-h min-w-0 rounded-lg border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2"
         />
         <p
-          *ngIf="formulario.controls.nomeAluno.touched && formulario.controls.nomeAluno.invalid"
+          *ngIf="
+            formulario.controls.nomeAluno.touched &&
+            formulario.controls.nomeAluno.dirty &&
+            onObterErroNome(formulario.controls.nomeAluno) as erro
+          "
+          animate.enter="transition-opacity duration-300 ease-in opacity-100"
+          animate.leave="transition-opacity duration-300 ease-out opacity-0"
           class="mt-1 text-sm text-red-600"
           role="alert"
         >
-          {{ 'enviarResposta.nome-obrigatorio' | translate }}
+          {{ erro | translate }}
         </p>
       </div>
 
@@ -64,15 +80,30 @@
           name="comentarioResposta"
           required
           rows="3"
+          [ngClass]="{
+            'border-red-500 focus:ring-red-500':
+              formulario.controls.comentarioResposta.touched &&
+              formulario.controls.comentarioResposta.dirty &&
+              formulario.controls.comentarioResposta.invalid,
+            'border-gray-300 focus:ring-green-600':
+              !formulario.controls.comentarioResposta.invalid ||
+              !formulario.controls.comentarioResposta.touched ||
+              !formulario.controls.comentarioResposta.dirty,
+          }"
           placeholder="{{ 'enviarResposta.placeholder-comentario' | translate }}"
-          class="w-full min-w-0 rounded-lg border p-3"
+          class="w-full min-w-0 rounded-lg border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2"
         ></textarea>
         <p
-          *ngIf="formulario.controls.comentarioResposta.touched && formulario.controls.comentarioResposta.invalid"
+          *ngIf="
+            formulario.controls.comentarioResposta.touched &&
+            formulario.controls.comentarioResposta.dirty &&
+            onObterErroComentario(formulario.controls.comentarioResposta) as erro"
+          animate.enter="transition-opacity duration-300 ease-in opacity-100"
+          animate.leave="transition-opacity duration-300 ease-out opacity-0"
           class="mt-1 text-sm text-red-600"
           role="alert"
         >
-          {{ 'enviarResposta.comentario-obrigatorio' | translate }}
+          {{ erro | translate }}
         </p>
       </div>
 
@@ -110,7 +141,6 @@
       <div class="flex flex-col gap-2 sm:flex-row">
         <button
           type="submit"
-          [disabled]="enviandoResposta || !nomeAluno.trim()"
           class="w-full rounded-lg bg-green-800 px-4 py-3 text-white transition hover:bg-green-900 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
           {{

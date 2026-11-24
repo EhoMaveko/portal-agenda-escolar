@@ -5,7 +5,8 @@ import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
+
 
 interface Agenda {
   id: number;
@@ -52,12 +53,13 @@ export class AgendaListComponent implements OnInit {
 
   protected formulario = new FormGroup({
     nomeAluno: new FormControl('', {
+
       nonNullable: true,
-      validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+      validators: [Validators.required, Validators.pattern(/.*\S.*/), Validators.minLength(3)],
     }),
     comentarioResposta: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.pattern(/.*\S.*/)],
+      validators: [Validators.pattern(/.*\S.*/)]
     }),
     arquivoSelecionado: new FormControl<File | null>(null)
   });
@@ -119,6 +121,26 @@ export class AgendaListComponent implements OnInit {
         ? 'MM/dd/yyyy hh:mm a'
         : 'dd/MM/yyyy HH:mm';
   }
+
+  public onObterErroNome(campo: AbstractControl): string | null {
+  if (campo.hasError('required')) {
+    return 'enviarResposta.nome-obrigatorio';
+  }
+
+  if (campo.hasError('minlength')) {
+    return 'enviarResposta.nome-minimo';
+  }
+
+  return null;
+}
+
+  public onObterErroComentario(campo: AbstractControl): string | null {
+  if (campo.hasError('required')) {
+    return 'enviarResposta.comentario-obrigatorio';
+  }
+
+  return null;
+}
 
   public ngOnInit(): void {
     this.http.get<Agenda[]>('http://localhost:8000/api/agendas')
@@ -265,8 +287,10 @@ export class AgendaListComponent implements OnInit {
 public onEnviarResposta(): void {
   this.mensagemResposta = '';
 
-  this.formulario.controls.nomeAluno.markAsTouched();
-  this.formulario.controls.comentarioResposta.markAsTouched();
+  this.formulario.markAllAsDirty();
+  this.formulario.markAllAsTouched();
+
+  alert(this.translate.instant('criarAgenda.campos-invalidos'));
 
   if (this.agendaSelecionadaId === null) {
     this.mensagemResposta = 'Selecione uma agenda.';

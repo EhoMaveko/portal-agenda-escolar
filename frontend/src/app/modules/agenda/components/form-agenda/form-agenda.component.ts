@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -7,14 +6,15 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  AnimationCallbackEvent
+  AnimationCallbackEvent,
 } from '@angular/core';
 
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
+  AbstractControl,
 } from '@angular/forms';
 
 import { COMMONS_MODULES } from '../../../../shared';
@@ -32,7 +32,6 @@ export interface Perfil {
   templateUrl: './form-agenda.component.html',
 })
 export class FormAgendaComponent implements OnInit, OnChanges {
-
   @Input() public perfis: Perfil[] = [];
   @Input() public salvando = false;
   @Input() public mensagem = '';
@@ -47,7 +46,7 @@ export class FormAgendaComponent implements OnInit, OnChanges {
   protected formulario = new FormGroup({
     titulo: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(3)],
     }),
 
     descricao: new FormControl('', {
@@ -76,13 +75,10 @@ export class FormAgendaComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-
     if (changes['perfis'] && this.perfis.length > 0) {
       const perfilAtual = this.formulario.controls.perfilId.value;
 
-      const perfilExiste = this.perfis.some(
-        perfil => perfil.id === perfilAtual
-      );
+      const perfilExiste = this.perfis.some((perfil) => perfil.id === perfilAtual);
 
       if (!perfilExiste) {
         this.formulario.controls.perfilId.setValue(this.perfis[0].id);
@@ -94,18 +90,44 @@ export class FormAgendaComponent implements OnInit, OnChanges {
     }
   }
 
+  public onObterErroTitulo(campo: AbstractControl): string | null {
+    if (campo.hasError('required')) {
+      return 'criarAgenda.titulo-obrigatorio';
+    }
+
+    if (campo.hasError('minlength')) {
+      return 'criarAgenda.titulo-minimo';
+    }
+
+    return null;
+  }
+
   public animateForm(event: AnimationCallbackEvent): void {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
 
-    event.target.animate(
-      [
-        { opacity: 0 },
-        { opacity: 1 },
-      ],
-      { duration: 350, easing: 'ease-out' },
-    );
+    event.target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, easing: 'ease-out' });
+  }
+
+  public onEnviarFormulario(): void {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      this.formulario.markAllAsDirty();
+
+      alert(this._translate.instant('criarAgenda.campos-invalidos'));
+
+      return;
+    }
+
+    const dados = this.formulario.getRawValue();
+
+    this.cadastrar.emit({
+      titulo: dados.titulo.trim(),
+      descricao: dados.descricao.trim(),
+      dataEvento: dados.dataEvento,
+      perfilId: dados.perfilId,
+    });
   }
 
   public onAlterarIdioma(idioma: string): void {
@@ -134,22 +156,6 @@ export class FormAgendaComponent implements OnInit, OnChanges {
 
     this.idiomaAtual = idioma;
     this._translate.use(idioma);
-  }
-
-  public onEnviarFormulario(): void {
-    if (this.formulario.invalid) {
-      this.formulario.markAllAsTouched();
-      return;
-    }
-
-    const dados = this.formulario.getRawValue();
-
-    this.cadastrar.emit({
-      titulo: dados.titulo.trim(),
-      descricao: dados.descricao.trim(),
-      dataEvento: dados.dataEvento,
-      perfilId: dados.perfilId,
-    });
   }
 
   private _limparFormulario(): void {

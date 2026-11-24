@@ -33,9 +33,11 @@
     "cadastrar-agenda": "Cadastrar agenda",
     "processando": "Processando...",
     "titulo-obrigatorio": "O título é obrigatório",
+    "titulo-minimo": "O título precisar ter no mínimo 3 caracteres",
     "data-obrigatoria":"A data e hora são obrigatórias",
-    "agenda-failed":"Não foi possível cadastrar a agenda.",
-    "agenda-sucess":"Agenda salva com sucesso"
+    "agenda-failed":"Não foi possível cadastrar a agenda",
+    "agenda-sucess":"Agenda salva com sucesso",
+    "campos-invalidos":"Existem campos obrigatórios que não foram preenchidos. Verifique e tente novamente."
   },
 
     "listaDeAgendas": {
@@ -66,7 +68,9 @@
     "nenhuma-resposta": "Nenhuma resposta cadastrada para esta agenda.",
     "resposta-enviada-em": "Resposta enviada em: {{ data }}",
     "nome-obrigatorio": "O nome do aluno é obrigatório.",
-    "comentario-obrigatorio": "O comentário é obrigatório."
+    "comentario-obrigatorio": "O comentário é obrigatório.",
+    "nome-minimo":"O nome deve ter pelo menos 3 caracteres.",
+    "comentario-minimo":"O comentario deve ter pelo menos 3 caracteres."
 
   }
 }

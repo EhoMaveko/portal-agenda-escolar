@@ -1,0 +1,54 @@
+@use 'theme/tailwind';
+
+@use 'abstracts/breakpoints-sass';
+
+@use 'base/base';
+@use 'base/variables';
+
+@use 'components/accordion';
+@use 'components/dialog';
+@use 'components/math-live';
+@use 'components/ng-select';
+@use 'components/popover';
+@use 'components/text-editor';
+@use 'components/tab';
+
+@use 'fonts/calibri';
+@use 'fonts/goldplay';
+@use 'fonts/katex';
+@use 'fonts/opendyslexic';
+@use 'fonts/caveat';
+@use 'fonts/patrickhand';
+@use 'fonts/escolar';
+
+@use 'ngx-toastr/toastr';
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+}
+
+* {
+  scrollbar-color: #cdcfd1 transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 3px !important;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background-color: #cdcfd1;
+}

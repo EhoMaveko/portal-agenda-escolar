@@ -1,5 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnInit,
+  AnimationCallbackEvent
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { COMMONS_MODULES } from '../../../../shared';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface Perfil {
   id: number;
@@ -9,33 +19,88 @@ export interface Perfil {
 
 @Component({
   selector: 'app-form-agenda',
-  imports: [COMMONS_MODULES],
+  imports: [COMMONS_MODULES, FormsModule],
   templateUrl: './form-agenda.component.html',
 })
-export class FormAgendaComponent {
-  @Input() perfis: Perfil[] = [];
-  @Input() salvando = false;
-  @Input() mensagem = '';
+export class FormAgendaComponent implements OnInit {
+  @Input() public perfis: Perfil[] = [];
+  @Input() public salvando = false;
+  @Input() public mensagem = '';
 
-  @Output() cadastrar = new EventEmitter<{
+  @Output() public cadastrar = new EventEmitter<{
     titulo: string;
     descricao: string;
     dataEvento: string;
     perfilId: number;
   }>();
 
-  titulo = '';
-  descricao = '';
-  dataEvento = '';
-  perfilId = 0;
+  public animateForm(event: AnimationCallbackEvent): void {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
 
-  ngOnChanges(): void {
+    event.target.animate(
+      [
+        { opacity: 0, },
+        { opacity: 1, },
+      ],
+      { duration: 350, easing: 'ease-out' },
+    );
+  }
+
+  protected titulo = '';
+  protected descricao = '';
+  protected dataEvento = '';
+  protected perfilId = 0;
+
+  protected idiomaAtual = 'pt-BR';
+
+  private _idiomasSuportados = ['pt-BR', 'en'];
+
+  constructor(private _translate: TranslateService) {}
+
+  public ngOnInit(): void {
+    this._definirIdiomaInicial();
+
     if (this.perfis.length > 0 && !this.perfis.some(p => p.id === this.perfilId)) {
       this.perfilId = this.perfis[0].id;
     }
+
+    if (this.mensagem === 'Salvo com sucesso!') {
+      this._limparFormulario();
+    }
   }
 
-  enviarFormulario(): void {
+  public onAlterarIdioma(idioma: string): void {
+    if (!this._idiomasSuportados.includes(idioma)) {
+      return;
+    }
+
+    this.idiomaAtual = idioma;
+
+    this._translate.use(idioma);
+
+    localStorage.setItem('idioma', idioma);
+  }
+
+
+  private _definirIdiomaInicial(): void {
+    const idiomaSalvo = localStorage.getItem('idioma');
+    const idiomaNavegador = navigator.language.split('-')[0];
+
+    let idioma = 'pt-BR';
+
+    if (idiomaSalvo && this._idiomasSuportados.includes(idiomaSalvo)) {
+      idioma = idiomaSalvo;
+    } else if (this._idiomasSuportados.includes(idiomaNavegador)) {
+      idioma = idiomaNavegador;
+    }
+
+    this.idiomaAtual = idioma;
+    this._translate.use(idioma);
+  }
+
+  public onEnviarFormulario(): void {
     if (!this.titulo.trim() || !this.dataEvento || !this.perfilId) {
       return;
     }
@@ -48,7 +113,7 @@ export class FormAgendaComponent {
     });
   }
 
-  limparFormulario(): void {
+  private _limparFormulario(): void {
     this.titulo = '';
     this.descricao = '';
     this.dataEvento = '';

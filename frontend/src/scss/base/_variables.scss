@@ -1,0 +1,16 @@
+$color-white: #fff;
+$color-gray: #999;
+$error-lightened: #ffe2e5;
+$error: #f64e60;
+$breakpoints: (
+  xs: 0,
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1366px,
+);
+$box-shadow:
+  0 2px 1px -1px rgb(0 0 0 / 20%),
+  0 1px 1px 0 rgb(0 0 0 / 14%),
+  0 1px 3px 0 rgb(0 0 0 / 12%);
+$border-radius: calc(0.42rem - 1px);

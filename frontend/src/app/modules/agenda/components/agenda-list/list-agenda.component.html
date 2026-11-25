@@ -36,6 +36,14 @@
         </p>
 
       <i class="pi pi-chevron-right text-sm text-gray-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-violet-600"></i>
+      <button
+        type="button"
+        (click)="$event.stopPropagation(); excluir.emit(agenda)"
+        [attr.aria-label]="'listaDeAgendas.excluir' | translate"
+        class="rounded-md px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100"
+      >
+        <svg class="size-5" viewBox="0 0 12 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.75 8C5.16421 8 5.5 8.33579 5.5 8.75V13.25C5.5 13.6642 5.16421 14 4.75 14C4.33579 14 4 13.6642 4 13.25V8.75C4 8.33579 4.33579 8 4.75 8Z" fill="currentColor"/><path d="M7.75 8C8.16421 8 8.5 8.33579 8.5 8.75V13.25C8.5 13.6642 8.16421 14 7.75 14C7.33579 14 7 13.6642 7 13.25V8.75C7 8.33579 7.33579 8 7.75 8Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10 4C11.1 4 12 4.9 12 6V16C12 17.1 11.1 18 10 18H2C0.9 18 0 17.1 0 16V6C0 4.9 0.9 4 2 4H10ZM2.54004 5.32227C1.99004 5.32227 1.54004 5.77227 1.54004 6.32227L1.57422 15.665C1.57446 16.2148 2.02437 16.665 2.57422 16.665L9.53418 16.6992C10.084 16.6992 10.5339 16.249 10.5342 15.6992L10.5 6.35645C10.5 5.80645 10.05 5.35645 9.5 5.35645L2.54004 5.32227Z" fill="currentColor"/><path d="M8.08984 0C8.34984 0 8.61004 0.110039 8.79004 0.290039L9.5 1H11C11.55 1 12 1.45 12 2C12 2.55 11.55 3 11 3H1C0.45 3 0 2.55 0 2C0 1.45 0.45 1 1 1H2.5L3.20996 0.290039C3.38996 0.110039 3.65016 0 3.91016 0H8.08984Z" fill="currentColor"/></svg>
+      </button>
     </div>
   </article>
 </div>

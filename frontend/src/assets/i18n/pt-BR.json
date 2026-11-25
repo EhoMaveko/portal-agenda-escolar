@@ -1,29 +1,66 @@
-
 {
-  "GENERAL": {
-    "SAVE": "Salvar",
-    "CANCEL": "Cancelar",
-    "DELETE": "Excluir",
-    "EDIT": "Editar",
-    "SEARCH": "Pesquisar",
-    "LOADING": "Carregando..."
+  "layout": {
+    "banners": "Banners",
+    "criar-agenda": "Criar Agenda",
+    "lista-de-agendas": "Lista de Agendas",
+    "relatorio": "Relatório",
+    "servicos": "Serviços",
+    "suporte": "Suporte"
   },
-  "MENU": {
-    "HOME": "Início",
-    "DASHBOARD": "Painel",
-    "STUDENTS": "Alunos",
-    "TEACHERS": "Professores",
-    "SETTINGS": "Configurações"
+
+  "agendaReports": {
+    "titulo": "Relatório DSA",
+    "descricao": "Gere um resumo das agendas e de suas respostas.",
+    "solicitar": "Solicitar relatório DSA",
+    "processando": "Processando...",
+    "solicitado": "Relatório solicitado. Gerando arquivo...",
+    "erroSolicitacao": "Não foi possível solicitar o relatório. Tente novamente.",
+    "erroGeracao": "Ocorreu um erro ao gerar o relatório.",
+    "erroConsulta": "Não foi possível consultar o processamento do relatório.",
+    "baixado": "Relatório baixado com sucesso.",
+    "erroDownload": "Não foi possível baixar o relatório."
   },
-  "LOGIN": {
-    "TITLE": "Bem-vindo",
-    "EMAIL": "E-mail",
-    "PASSWORD": "Senha",
-    "SUBMIT": "Entrar"
+
+  "criarAgenda": {
+    "titulo-pagina": "Nova Agenda",
+    "subtitulo": "Preencha os dados para cadastrar um evento escolar.",
+    "titulo-formulario": "Título da reunião",
+    "data-hora": "Data e hora",
+    "descricao": "Descrição",
+    "perfil": "Perfil",
+    "placeholder-titulo": "Ex.: Reunião de pais",
+    "placeholder-descricao": "Detalhes do evento...",
+    "cadastrar-agenda": "Cadastrar agenda",
+    "processando": "Processando..."
   },
-  "HEADER": {
-    "INSTITUTION": "Colégio Adventista",
-    "PROFILE": "Meu perfil",
-    "LOGOUT": "Sair"
+
+    "listaDeAgendas": {
+    "titulo-pagina": "Selecione uma agenda",
+    "subtitulo-pagina": "Escolha uma agenda da lista para visualizar e enviar respostas.",
+    "ativo": "Ativa",
+    "excluir": "Excluir",
+    "confirmarExclusao": "Excluir a agenda \"{{ titulo }}\"? As respostas e os arquivos anexados também serão apagados.",
+    "erroExclusao": "Não foi possível excluir a agenda. Tente novamente."
+  },
+  "enviarResposta": {
+    "aluno": "Aluno",
+    "titulo-pagina": "Enviar Resposta",
+    "subtitulo": "Preencha os dados abaixo para responder à agenda selecionada.",
+    "nome-aluno": "Nome do Aluno *",
+    "comentario": "Comentário",
+    "resposta": "Resposta",
+    "placeholder-nome-aluno": "Ex.: João da Silva",
+    "placeholder-comentario": "Escreva sua resposta...",
+    "enviar-resposta": "Enviar Resposta",
+    "processando": "Processando...",
+    "anexar-arquivo": "Anexar Arquivo (opcional, até 10 MB)",
+    "cancelar": "Cancelar",
+    "arquivo-selecionado": "Arquivo selecionado",
+    "nenhum-arquivo": "Nenhum arquivo anexado.",
+    "respostas-enviadas": "Respostas já enviadas.",
+    "carregando-respostas": "Carregando respostas...",
+    "nenhuma-resposta": "Nenhuma resposta cadastrada para esta agenda.",
+    "resposta-enviada-em": "Resposta enviada em"
+
   }
 }

@@ -1,0 +1,35 @@
+.tab {
+  box-shadow: 0 -11px 4px -10px rgb(0 0 0 / 15%);
+  border-radius: 12px 12px 0 0;
+
+  &::before {
+    content: '';
+    border-radius: 12px 0 0;
+    position: absolute;
+    top: 0;
+    background-color: inherit;
+    width: 23px;
+    height: 100%;
+    left: -13px;
+    transform: skew(-24deg);
+    box-shadow: -2px -1px 4px -1px rgb(0 0 0 / 15%);
+  }
+
+  &::after {
+    content: '';
+    border-radius: 0 12px 0 0;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 23px;
+    height: 100%;
+    transform: skew(24deg);
+    right: -13px;
+    background-color: inherit;
+    box-shadow: 2px -1px 4px -1px rgb(0 0 0 / 15%);
+  }
+
+  &__content {
+    box-shadow: 0 -5px 4px -5px rgb(0 0 0 / 15%);
+  }
+}

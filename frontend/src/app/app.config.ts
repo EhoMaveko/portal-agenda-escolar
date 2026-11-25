@@ -1,26 +1,37 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection
+} from '@angular/core';
+
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, HttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideTranslateService({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) => ({
-          getTranslation: (lang: string) => http.get(`./assets/i18n/${lang}.json`),
-        }),
-        deps: [HttpClient],
-      },
-    }),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
+
     provideRouter(routes),
     provideHttpClient(),
+
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json'
+      }),
+      lang: 'pt-BR',
+      fallbackLang: 'pt-BR'
+    }),
+
     importProvidersFrom(AngularSvgIconModule.forRoot()),
   ]
 };

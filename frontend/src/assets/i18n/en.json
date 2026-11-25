@@ -1,0 +1,65 @@
+{
+    "layout": {
+    "banners": "Banners",
+    "criar-agenda": "Create Schedule",
+    "lista-de-agendas": "List of Schedules",
+    "relatorio": "Report",
+    "servicos": "Services",
+    "suporte": "Support"
+  },
+
+  "agendaReports": {
+    "titulo": "DSA Report",
+    "descricao": "Generate a summary of schedules and their responses.",
+    "solicitar": "Request DSA report",
+    "processando": "Processing...",
+    "solicitado": "Report requested. Generating file...",
+    "erroSolicitacao": "Could not request the report. Please try again.",
+    "erroGeracao": "An error occurred while generating the report.",
+    "erroConsulta": "Could not check the report processing status.",
+    "baixado": "Report downloaded successfully.",
+    "erroDownload": "Could not download the report."
+  },
+
+  "criarAgenda": {
+    "titulo-pagina": "New Schedule",
+    "subtitulo": "Fill in the details to register a school event.",
+    "titulo-formulario": "Meeting title",
+    "data-hora": "Date and time",
+    "descricao": "Description",
+    "perfil": "Profile",
+    "placeholder-titulo": "E.g.: Parents' meeting",
+    "placeholder-descricao": "Event details...",
+    "cadastrar-agenda": "Create schedule",
+    "processando": "Processing..."
+  },
+
+    "listaDeAgendas": {
+    "titulo-pagina": "Select a schedule",
+    "subtitulo-pagina": "Choose a schedule from the list to view and send responses.",
+    "ativo": "Active",
+    "excluir": "Delete",
+    "confirmarExclusao": "Delete the schedule \"{{ titulo }}\"? Its responses and attached files will also be deleted.",
+    "erroExclusao": "Could not delete the schedule. Please try again."
+  },
+  "enviarResposta": {
+    "aluno": "Student",
+    "titulo-pagina": "Send Response",
+    "subtitulo": "Fill in the details below to respond to the selected schedule.",
+    "nome-aluno": "Student Name *",
+    "comentario": "Comment",
+    "resposta": "Response",
+    "placeholder-nome-aluno": "Ex.: John Marston",
+    "placeholder-comentario": "Write your response...",
+    "enviar-resposta": "Send Response",
+    "processando": "Processing...",
+    "anexar-arquivo": "Attach File (optional, up to 10MB)",
+    "cancelar": "Cancel",
+    "arquivo-selecionado": "Selected File",
+    "nenhum-arquivo": "No File Attached",
+    "respostas-enviadas": "Responses Already Sent",
+    "carregando-respostas": "Loading Responses...",
+    "nenhuma-resposta": "No response registered for this schedule.",
+    "resposta-enviada-em": "Response sent on"
+  }
+}

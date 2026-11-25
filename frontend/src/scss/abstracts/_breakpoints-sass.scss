@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use '../base/variables';
+
+// BREAKPOINTS
+
+@function breakpoint-min($name, $breakpoints: $breakpoints) {
+  $min: map.get($breakpoints, $name);
+
+  @return if($min != 0, $min, null);
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+
+  @if $min {
+    /* stylelint-disable-next-line at-rule-empty-line-before */
+    @media (min-width: $min) {
+      @content;
+    }
+    /* stylelint-disable-next-line at-rule-empty-line-before */
+  } @else {
+    @content;
+  }
+}
+
+@function breakpoint-infix($name, $breakpoints: $breakpoints) {
+  /* stylelint-disable-next-line at-rule-empty-line-before */
+  @return if(breakpoint-min($name, $breakpoints) == null, '', '-#{$name}');
+}
+
+@mixin for-phone-only {
+  /* stylelint-disable-next-line at-rule-empty-line-before */
+  @media (max-width <= 576px) {
+    @content;
+  }
+}
+@mixin respond-to($breakpoint) {
+  // If the key exists in the map
+  @if map.has-key(variables.$breakpoints, $breakpoint) {
+    // Prints a media query based on the value
+
+    @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+      @content;
+    }
+    /* stylelint-disable-next-line at-rule-empty-line-before */
+  } @else {
+    /* stylelint-disable-next-line at-rule-empty-line-before */
+    @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. ' + 'Available breakpoints are: #{map.keys(variables.$breakpoints)}.';
+  }
+}

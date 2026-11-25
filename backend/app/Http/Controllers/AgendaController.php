@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Agenda;
+use Illuminate\Support\Facades\Storage;
 
 class AgendaController extends Controller
 {
@@ -32,6 +33,21 @@ class AgendaController extends Controller
     $agenda = Agenda::create($dados);
 
     return response()->json($agenda, 201);
+    }
+
+    public function destroy(int $id)
+    {
+        $agenda = Agenda::with('respostas')->findOrFail($id);
+
+        foreach ($agenda->respostas as $resposta) {
+            if ($resposta->arquivo_path) {
+                Storage::disk('s3')->delete($resposta->arquivo_path);
+            }
+        }
+
+        $agenda->delete();
+
+        return response()->noContent();
     }
 
 }

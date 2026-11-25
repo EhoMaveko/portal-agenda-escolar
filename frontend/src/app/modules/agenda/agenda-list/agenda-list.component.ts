@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
 
 interface Agenda {
   id: number;
@@ -25,47 +27,53 @@ interface Resposta {
 
   imports: [COMMONS_MODULES, ListAgendaComponent],
   templateUrl: './agenda-list.component.html',
+
 })
 export class AgendaListComponent implements OnInit {
 
-  agendas: Agenda[] = [];
-  carregando = true;
+  protected agendas: Agenda[] = [];
+  protected carregando = true;
 
-  erro = '';
+  protected erro = '';
+  protected excluindoAgendaId: number | null = null;
 
-  perfis: { id: number; nome: string; tipo: string }[] = [];
+  protected perfis: { id: number; nome: string; tipo: string }[] = [];
 
-  novoTitulo = '';
-  novaDescricao = '';
-  novaDataEvento = '';
-  novoPerfilId = 1;
+  protected novoTitulo = '';
+  protected novaDescricao = '';
+  protected novaDataEvento = '';
+  protected novoPerfilId = 1;
 
-  salvando = false;
-  mensagem = '';
+  protected salvando = false;
+  protected mensagem = '';
 
-  agendaSelecionadaId: number | null = null;
-  respostas: Resposta[] = [];
+  protected agendaSelecionadaId: number | null = null;
+  protected respostas: Resposta[] = [];
 
-  nomeAluno = '';
-  comentarioResposta = '';
-  arquivoSelecionado: File | null = null;
+  protected nomeAluno = '';
+  protected comentarioResposta = '';
+  protected arquivoSelecionado: File | null = null;
 
-  carregandoRespostas = false;
-  enviandoResposta = false;
-  mensagemResposta = '';
+  protected carregandoRespostas = false;
+  protected enviandoResposta = false;
+  protected mensagemResposta = '';
 
-  solicitandoRelatorio = false;
-  mensagemRelatorio = '';
-  erroRelatorio = false;
+  protected solicitandoRelatorio = false;
+  protected mensagemRelatorio = '';
+  protected erroRelatorio = false;
 
 
-  constructor(private http: HttpClient) {
+  private readonly http: HttpClient;
+  private readonly translate = inject(TranslateService);
+
+  constructor(http: HttpClient) {
+    this.http = http;
 
 
 
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.http.get<Agenda[]>('http://localhost:8000/api/agendas')
       .subscribe({
         next: (dados) => {
@@ -95,7 +103,7 @@ export class AgendaListComponent implements OnInit {
     });
   }
 
-      cadastrarAgenda(dados?: {
+  public onCadastrarAgenda(dados?: {
         titulo: string;
         descricao: string;
         dataEvento: string;
@@ -144,7 +152,7 @@ export class AgendaListComponent implements OnInit {
       }
 
 
-  selecionarAgenda(agendaId: number): void {
+  public onSelecionarAgenda(agendaId: number): void {
     this.agendaSelecionadaId = agendaId;
     this.respostas = [];
     this.mensagemResposta = '';
@@ -154,7 +162,36 @@ export class AgendaListComponent implements OnInit {
     this.carregarRespostas(agendaId);
   }
 
-  carregarRespostas(agendaId: number): void {
+  public onExcluirAgenda(agenda: AgendaLista): void {
+    const confirmacao = this.translate.instant('listaDeAgendas.confirmarExclusao', {
+      titulo: agenda.titulo,
+    });
+
+    if (!window.confirm(confirmacao) || this.excluindoAgendaId !== null) {
+      return;
+    }
+
+    this.excluindoAgendaId = agenda.id;
+    this.http.delete<void>(`http://localhost:8000/api/agendas/${agenda.id}`).subscribe({
+      next: () => {
+        this.agendas = this.agendas.filter((item) => item.id !== agenda.id);
+
+        if (this.agendaSelecionadaId === agenda.id) {
+          this.agendaSelecionadaId = null;
+          this.respostas = [];
+        }
+
+        this.excluindoAgendaId = null;
+      },
+      error: (erro) => {
+        console.error('Erro ao excluir agenda:', erro);
+        window.alert(this.translate.instant('listaDeAgendas.erroExclusao'));
+        this.excluindoAgendaId = null;
+      },
+    });
+  }
+
+  private carregarRespostas(agendaId: number): void {
     this.carregandoRespostas = true;
 
     this.http.get<Resposta[]>(
@@ -172,12 +209,12 @@ export class AgendaListComponent implements OnInit {
     });
   }
 
-  onArquivoSelecionado(event: Event): void {
+  public onArquivoSelecionado(event: Event): void {
     const campo = event.target as HTMLInputElement;
     this.arquivoSelecionado = campo.files?.[0] ?? null;
   }
 
-  enviarResposta(): void {
+  public onEnviarResposta(): void {
     this.mensagemResposta = '';
 
     if (this.agendaSelecionadaId === null) {

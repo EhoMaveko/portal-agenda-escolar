@@ -8,6 +8,13 @@
     "suporte": "Suporte"
   },
 
+  "supportModal": {
+    "title": "Suporte",
+    "description": "Precisa de ajuda com o Portal Agenda? Entre em contato com a equipe responsável pelo atendimento da sua escola.",
+    "close": "Fechar janela de suporte",
+    "ok": "Entendi"
+  },
+
   "agendaReports": {
     "titulo": "Relatório DSA",
     "descricao": "Gere um resumo das agendas e de suas respostas.",

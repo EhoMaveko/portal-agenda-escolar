@@ -1,12 +1,11 @@
-
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { COMMONS_MODULES } from '../../../shared';
 import { ListAgendaComponent } from '../components/agenda-list/list-agenda.component';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Agenda as AgendaLista } from '../components/agenda-list/list-agenda.component';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
-
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AnswerAgendaComponent } from '../components/answer-agenda/answer-agenda.component';
 
 interface Agenda {
   id: number;
@@ -27,7 +26,7 @@ interface Resposta {
 }
 
 @Component({
-  imports: [COMMONS_MODULES, ListAgendaComponent, ReactiveFormsModule, TranslatePipe],
+  imports: [COMMONS_MODULES, ListAgendaComponent, ReactiveFormsModule, AnswerAgendaComponent],
   templateUrl: './agenda-list.component.html',
 })
 export class AgendaListComponent implements OnInit {
@@ -49,6 +48,7 @@ export class AgendaListComponent implements OnInit {
   protected mensagem = '';
 
   protected agendaSelecionadaId: number | null = null;
+  protected modalRespostaVisivel = false;
   protected respostas: Resposta[] = [];
 
   protected formulario = new FormGroup({
@@ -121,26 +121,6 @@ export class AgendaListComponent implements OnInit {
         ? 'MM/dd/yyyy hh:mm a'
         : 'dd/MM/yyyy HH:mm';
   }
-
-  public onObterErroNome(campo: AbstractControl): string | null {
-  if (campo.hasError('required')) {
-    return 'enviarResposta.nome-obrigatorio';
-  }
-
-  if (campo.hasError('minlength')) {
-    return 'enviarResposta.nome-minimo';
-  }
-
-  return null;
-}
-
-  public onObterErroComentario(campo: AbstractControl): string | null {
-  if (campo.hasError('required')) {
-    return 'enviarResposta.comentario-obrigatorio';
-  }
-
-  return null;
-}
 
   public ngOnInit(): void {
     this.http.get<Agenda[]>('http://localhost:8000/api/agendas')
@@ -222,12 +202,18 @@ export class AgendaListComponent implements OnInit {
 
   public onSelecionarAgenda(agendaId: number): void {
     this.agendaSelecionadaId = agendaId;
+    this.modalRespostaVisivel = true;
     this.respostas = [];
     this.mensagemResposta = '';
     this.nomeAluno = '';
     this.comentarioResposta = '';
     this.arquivoSelecionado = null;
     this.carregarRespostas(agendaId);
+  }
+
+  public onFecharModalResposta(): void {
+    this.modalRespostaVisivel = false;
+    this.agendaSelecionadaId = null;
   }
 
   public onExcluirAgenda(agenda: AgendaLista): void {
@@ -246,7 +232,7 @@ export class AgendaListComponent implements OnInit {
         this.agendas = this.agendas.filter((item) => item.id !== agenda.id);
 
         if (this.agendaSelecionadaId === agenda.id) {
-          this.agendaSelecionadaId = null;
+          this.onFecharModalResposta();
           this.respostas = [];
         }
 
@@ -289,8 +275,6 @@ public onEnviarResposta(): void {
 
   this.formulario.markAllAsDirty();
   this.formulario.markAllAsTouched();
-
-  alert(this.translate.instant('criarAgenda.campos-invalidos'));
 
   if (this.agendaSelecionadaId === null) {
     this.mensagemResposta = 'Selecione uma agenda.';

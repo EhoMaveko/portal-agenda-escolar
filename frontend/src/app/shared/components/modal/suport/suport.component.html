@@ -1,0 +1,45 @@
+<div
+  class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+  (click)="fechar.emit()"
+>
+  <section
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="suporte-modal-titulo"
+    class="w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl sm:p-8"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="mb-4 flex items-start justify-between gap-4">
+      <h2 id="suporte-modal-titulo" class="text-xl font-bold text-gray-900">
+        {{ 'supportModal.title' | translate }}
+      </h2>
+      <button
+        type="button"
+        (click)="fechar.emit()"
+        class="rounded-md px-2 py-1 text-2xl leading-none text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
+        [attr.aria-label]="'supportModal.close' | translate"
+      >
+        &times;
+      </button>
+    </header>
+
+    <p class="text-sm leading-6 text-gray-600">
+      {{ 'supportModal.description' | translate }}
+    </p>
+
+    <footer class="mt-6 flex justify-end">
+      <button
+        type="button"
+        (click)="fechar.emit()"
+        class="rounded-lg  px-4 py-2.5 font-medium text-white transition hover:saturate-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-700"
+              [ngClass]="{
+        'bg-[#7459bd]': router.url.startsWith('/create'),
+        'bg-indigo-400': router.url.startsWith('/list'),
+        'bg-gray-400': router.url.startsWith('/reports'),
+      }"
+      >
+        {{ 'supportModal.ok' | translate }}
+      </button>
+    </footer>
+  </section>
+</div>

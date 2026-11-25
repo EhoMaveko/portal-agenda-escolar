@@ -7,6 +7,12 @@
     "servicos": "Services",
     "suporte": "Support"
   },
+  "supportModal": {
+    "title": "Support",
+    "description": "Need help with Portal Agenda? Contact the support team at your school.",
+    "close": "Close support dialog",
+    "ok": "Got it"
+  },
   "agendaReports": {
     "titulo": "DSA Report",
     "descricao": "Generate a summary of schedules and their responses.",

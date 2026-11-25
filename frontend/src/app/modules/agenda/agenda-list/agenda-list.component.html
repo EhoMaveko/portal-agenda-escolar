@@ -1,6 +1,6 @@
-<div class="grid min-w-0 grid-cols-1 items-start gap-10 lg:grid-cols-2 px-2 py-2 sm:px-3 lg:px-3">
+<div class="grid min-w-0 grid-cols-1 items-start gap-10 px-2 py-2 sm:px-3 lg:px-3">
   <section
-    class="min-w-0 rounded-lg border bg-white p-4 sm:p-6 inset-shadow-sm inset-shadow-black/20"
+    class="min-w-0 rounded-lg bg-white p-4 sm:p-6 inset-shadow-sm inset-shadow-black/20"
   >
     <app-list-agenda
       [agendas]="agendas"
@@ -10,228 +10,25 @@
       (excluir)="onExcluirAgenda($event)"
     ></app-list-agenda>
   </section>
-
-  <section
-    *ngIf="agendaSelecionadaId !== null"
-    class="min-w-0 space-y-4 rounded-lg border bg-white p-4 sm:p-6 inset-shadow-sm inset-shadow-black/20"
+  <div
+    *ngIf="modalRespostaVisivel"
+    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-6"
+    tabindex="-1"
+    (click)="onFecharModalResposta()"
+    (keydown.escape)="onFecharModalResposta()"
   >
-    <div>
-      <h2 class="text-xl font-bold text-green-900">
-        {{ 'listaDeAgendas.titulo-pagina' | translate }}
-      </h2>
-
-      <p class="mt-1 text-sm text-gray-600">
-        {{ 'listaDeAgendas.subtitulo-pagina' | translate }}
-      </p>
-    </div>
-
-    <form [formGroup]="formulario" class="min-w-0 space-y-4" (ngSubmit)="onEnviarResposta()">
-      <div class="min-w-0">
-        <label for="nomeAluno" class="mb-1 block font-medium">
-          {{ 'enviarResposta.nome-aluno' | translate }}
-        </label>
-
-        <input
-          id="nomeAluno"
-          formControlName="nomeAluno"
-          type="text"
-          name="nomeAluno"
-          required
-          autocomplete="off"
-          data-1p-ignore="true"
-          data-op-ignore="true"
-          maxlength="255"
-          [ngClass]="{
-            'border-red-500 focus:ring-red-500':
-              formulario.controls.nomeAluno.touched &&
-              formulario.controls.nomeAluno.dirty &&
-              formulario.controls.nomeAluno.invalid,
-            'border-gray-300 focus:ring-green-600':
-              !formulario.controls.nomeAluno.invalid ||
-              !formulario.controls.nomeAluno.touched ||
-              !formulario.controls.nomeAluno.dirty,
-          }"
-          placeholder="{{ 'enviarResposta.placeholder-nome-aluno' | translate }}"
-          class="w-full min-h min-w-0 rounded-lg border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2"
-        />
-        <p
-          *ngIf="
-            formulario.controls.nomeAluno.touched &&
-            formulario.controls.nomeAluno.dirty &&
-            onObterErroNome(formulario.controls.nomeAluno) as erro
-          "
-          animate.enter="transition-opacity duration-300 ease-in opacity-100"
-          animate.leave="transition-opacity duration-300 ease-out opacity-0"
-          class="mt-1 text-sm text-red-600"
-          role="alert"
-        >
-          {{ erro | translate }}
-        </p>
-      </div>
-
-      <div class="min-w-0">
-        <label for="comentarioResposta" class="mb-1 block font-medium">
-          {{ 'enviarResposta.comentario' | translate }}
-        </label>
-
-        <textarea
-          id="comentarioResposta"
-          formControlName="comentarioResposta"
-          name="comentarioResposta"
-          required
-          rows="3"
-          [ngClass]="{
-            'border-red-500 focus:ring-red-500':
-              formulario.controls.comentarioResposta.touched &&
-              formulario.controls.comentarioResposta.dirty &&
-              formulario.controls.comentarioResposta.invalid,
-            'border-gray-300 focus:ring-green-600':
-              !formulario.controls.comentarioResposta.invalid ||
-              !formulario.controls.comentarioResposta.touched ||
-              !formulario.controls.comentarioResposta.dirty,
-          }"
-          placeholder="{{ 'enviarResposta.placeholder-comentario' | translate }}"
-          class="w-full min-w-0 rounded-lg border p-3 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2"
-        ></textarea>
-        <p
-          *ngIf="
-            formulario.controls.comentarioResposta.touched &&
-            formulario.controls.comentarioResposta.dirty &&
-            onObterErroComentario(formulario.controls.comentarioResposta) as erro"
-          animate.enter="transition-opacity duration-300 ease-in opacity-100"
-          animate.leave="transition-opacity duration-300 ease-out opacity-0"
-          class="mt-1 text-sm text-red-600"
-          role="alert"
-        >
-          {{ erro | translate }}
-        </p>
-      </div>
-
-      <div class="min-w-0 flex flex-col gap-2">
-        {{ 'enviarResposta.anexar-arquivo' | translate }}
-        <input
-          id="arquivo"
-          type="file"
-          name="arquivo"
-          aria-labelledby="arquivo-botao"
-          (change)="onArquivoSelecionado($event)"
-          class="peer sr-only"
-        />
-
-        <label
-          id="arquivo-botao"
-          for="arquivo"
-          class="inline-flex size-10 cursor-pointer items-center justify-center rounded-lg border transition hover:bg-gray-100 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-green-800"
-        >
-          <svg-icon
-            src="assets/icons/icon-upload-fine.svg"
-            class="size-5 text-green-800"
-            aria-hidden="true"
-          ></svg-icon>
-          <span class="sr-only">
-            {{ 'AGENDA_LIST.REPLY_FORM.CHOOSE_FILE' | translate }}
-          </span>
-        </label>
-
-        <p *ngIf="arquivoSelecionado" class="mt-2 break-all text-sm text-gray-600">
-          {{ 'enviarResposta.arquivo-selecionado' | translate }}: {{ arquivoSelecionado.name }}
-        </p>
-      </div>
-
-      <div class="flex flex-col gap-2 sm:flex-row">
-        <button
-          type="submit"
-          class="w-full rounded-lg bg-green-800 px-4 py-3 text-white transition hover:bg-green-900 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-        >
-          {{
-            enviandoResposta
-              ? ('enviarResposta.processando' | translate)
-              : ('enviarResposta.enviar-resposta' | translate)
-          }}
-        </button>
-
-        <button
-          type="button"
-          (click)="agendaSelecionadaId = null"
-          [disabled]="enviandoResposta"
-          class="w-full rounded-lg border px-4 py-3 transition hover:bg-gray-100 disabled:opacity-60 sm:w-auto"
-        >
-          {{ 'enviarResposta.cancelar' | translate }}
-        </button>
-      </div>
-
-      <p
-        *ngIf="mensagemResposta"
-        role="status"
-        aria-live="polite"
-        class="wrap-break-word text-sm text-gray-700"
-      >
-        {{ mensagemResposta }}
-      </p>
-    </form>
-
-    <hr class="border-gray-200" />
-
-    <div>
-      <h3 class="text-lg font-bold text-gray-900">
-        {{ 'enviarResposta.respostas-enviadas' | translate }}
-      </h3>
-
-      <p *ngIf="carregandoRespostas" role="status" class="mt-3 text-sm text-gray-600">
-        {{ 'enviarResposta.carregando-respostas' | translate }}
-      </p>
-
-      <p *ngIf="!carregandoRespostas && respostas.length === 0" class="mt-3 text-sm text-gray-600">
-        {{ 'enviarResposta.nenhuma-resposta' | translate }}
-      </p>
-
-      <div class="mt-4 space-y-3">
-        <article
-          *ngFor="let resposta of respostas"
-          class="min-w-0 space-y-2 rounded-lg border bg-gray-50 p-4"
-        >
-          <p class="wrap-break-word">
-            <strong>{{ 'enviarResposta.aluno' | translate }}:</strong> {{ resposta.aluno_nome }}
-          </p>
-
-          <p class="wrap-break-word">
-            <strong>{{ 'enviarResposta.comentario' | translate }}:</strong>
-            {{ resposta.comentario || 'Sem comentário.' }}
-          </p>
-
-          <p class="wrap-break-word">
-            <strong>{{ 'enviarResposta.arquivo-selecionado' | translate }} :</strong>
-            {{ resposta.arquivo_path || 'Nenhum arquivo anexado.' }}
-          </p>
-
-          <small class="block wrap-break-word text-gray-500">
-            {{
-              'enviarResposta.resposta-enviada-em'
-                | translate
-                  : {
-                      data: (resposta.created_at | date: formatoData),
-                    }
-            }}
-          </small>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section
-    *ngIf="agendaSelecionadaId === null"
-    class="hidden min-w-0 rounded-lg border border-dashed bg-white p-8 text-center lg:block"
-  >
-    <div class="flex flex-col items-center gap-3">
-      <span class="text-3xl text-green-800" aria-hidden="true"> ✓ </span>
-
-      <h2 class="text-lg font-semibold text-gray-800">
-        {{ 'listaDeAgendas.titulo-pagina' | translate }}
-      </h2>
-
-      <p class="max-w-sm text-sm text-gray-600">
-        {{ 'listaDeAgendas.subtitulo-pagina' | translate }}
-      </p>
-    </div>
-  </section>
+    <app-answer-agenda
+      [formulario]="formulario"
+      [enviandoResposta]="enviandoResposta"
+      [mensagemResposta]="mensagemResposta"
+      [respostas]="respostas"
+      [carregandoRespostas]="carregandoRespostas"
+      [formatoData]="formatoData"
+      [arquivoSelecionado]="arquivoSelecionado"
+      (enviar)="onEnviarResposta()"
+      (fechar)="onFecharModalResposta()"
+      (arquivoAlterado)="onArquivoSelecionado($event)"
+      (click)="$event.stopPropagation()"
+    ></app-answer-agenda>
+  </div>
 </div>

@@ -1,12 +1,22 @@
 <div class="min-h-screen overflow-x-hidden bg-purple-50">
   <!-- SIDEBAR ESQUERDA -->
   <aside
-    class="fixed left-0 top-0 z-50 flex h-screen w-[72px] flex-col items-center bg-[#5940A0] text-white"
+    class="fixed left-0 top-0 z-50 flex h-screen w-[72px] flex-col items-center bg-[#5940A0] text-white transition-colors duration-300 ease-in-out"
+    [ngClass]="{
+      'bg-[#5940A0]': router.url.startsWith('/create'),
+      'bg-indigo-500': router.url.startsWith('/list'),
+      'bg-gray-500': router.url.startsWith('/reports'),
+    }"
   >
     <!-- Logo -->
     <button
       type="button"
       class="flex h-15 w-full shrink-0 items-center cursor-pointer justify-center bg-[#462983]"
+      [ngClass]="{
+        'bg-[#462983]': router.url.startsWith('/create'),
+        'bg-indigo-800': router.url.startsWith('/list'),
+        'bg-gray-600': router.url.startsWith('/reports'),
+      }"
       routerLink=""
     >
       <svg class="w-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 91.34 85.46">
@@ -100,7 +110,14 @@
     </nav>
 
     <!-- Rodapé -->
-    <div class="flex h-18 w-full shrink-0 items-center justify-center bg-[#684eaa]">
+    <div
+      class="flex h-18 w-full shrink-0 items-center justify-center bg-[#684eaa]"
+      [ngClass]="{
+        'bg-[#7459bd]': router.url.startsWith('/create'),
+        'bg-indigo-400': router.url.startsWith('/list'),
+        'bg-gray-400': router.url.startsWith('/reports'),
+      }"
+    >
       <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100">
         <path
           fill="currentColor"
@@ -131,7 +148,12 @@
         <div
           class="flex h-min w-min cursor-pointer items-center justify-center gap-2 bg-gray-200 rounded-md bg-modules-eclass-100 p-1.5"
         >
-          <div (click)="onSelecionarIdioma(1, 'pt-BR')" [ngClass]="itemAtivo === 1 ? 'opacity-100' : 'opacity-30'" app-tooltip="Português" class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100">
+          <div
+            (click)="onSelecionarIdioma(1, 'pt-BR')"
+            [ngClass]="itemAtivo === 1 ? 'opacity-100' : 'opacity-30'"
+            app-tooltip="Português"
+            class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100"
+          >
             <svg
               version="1.1"
               id="Layer_10"
@@ -191,7 +213,10 @@
             </span>
           </div>
 
-          <button (click)="onSelecionarIdioma(2, 'en')" [ngClass]="itemAtivo === 2 ? 'opacity-100' : 'opacity-30'" app-tooltip="Inglês"
+          <button
+            (click)="onSelecionarIdioma(2, 'en')"
+            [ngClass]="itemAtivo === 2 ? 'opacity-100' : 'opacity-30'"
+            app-tooltip="Inglês"
             app-tooltip="Inglês"
             class="relative group w-9 cursor-pointer transition-opacity duration-300 hover:opacity-100"
           >
@@ -418,6 +443,7 @@
           <button
             app-button=""
             type="button"
+            (click)="suporteVisivel = true"
             class="relative group inline-flex flex-col items-center justify-center w-16 h-16 rounded-lg p-2 hover:brightness-110 cursor-pointer"
           >
             <svg class="w-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" fill="none">
@@ -427,7 +453,9 @@
               />
             </svg>
 
-            <span class="text-xs font-normal text-violet-400"> {{ 'layout.suporte' | translate }} </span>
+            <span class="text-xs font-normal text-violet-400">
+              {{ 'layout.suporte' | translate }}
+            </span>
           </button>
         </div>
 
@@ -466,7 +494,9 @@
               />
             </svg>
 
-            <span class="text-xs pt-1.5 font-regular text-violet-400"> {{ 'layout.banners' | translate }} </span>
+            <span class="text-xs pt-1.5 font-regular text-violet-400">
+              {{ 'layout.banners' | translate }}
+            </span>
           </button>
         </div>
 
@@ -485,30 +515,19 @@
                 ></path></svg
             ></svg-icon>
 
-            <span class="text-xs pt-1 font-regular text-violet-400"> {{ 'layout.servicos' | translate }} </span>
+            <span class="text-xs pt-1 font-regular text-violet-400">
+              {{ 'layout.servicos' | translate }}
+            </span>
           </button>
         </div>
 
         <!-- Perfil do usuário -->
         <div class="flex cursor-pointer items-center justify-end">
-          <button
-            id="menu"
-            app-icon-button=""
-            app-outline-button=""
-            type="button"
-            class="relative inline-flex w-max cursor-pointer select-none items-center justify-center rounded-full border outline-purple-400 outline-2 transition duration-300 hover:brightness-110 active:brightness-85 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 bg-theme/80"
-          >
-            <div class="h-8 w-8">
-              <img
-                class="rounded-full object-cover h-8 w-8"
-                src="assets/images/empty-avatar.png"
-                alt="Perfil do usuário"
-              />
-            </div>
-          </button>
+          <app-perfil></app-perfil>
         </div>
       </div>
     </div>
     <router-outlet></router-outlet>
+    <app-suport *ngIf="suporteVisivel" (fechar)="suporteVisivel = false"></app-suport>
   </main>
 </div>

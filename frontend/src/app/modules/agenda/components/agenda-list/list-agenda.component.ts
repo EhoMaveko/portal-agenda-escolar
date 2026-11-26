@@ -3,8 +3,6 @@ import { COMMONS_MODULES } from '../../../../shared';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-
-
 export interface Agenda {
   id: number;
   perfil_id: number;
@@ -18,15 +16,14 @@ export interface Agenda {
   selector: 'app-list-agenda',
   imports: [COMMONS_MODULES, TranslatePipe],
   templateUrl: './list-agenda.component.html',
-  styleUrl: './list-agenda.component.css'
+  styleUrl: './list-agenda.component.css',
 })
-
-
-
 export class ListAgendaComponent {
   protected formatoData = 'dd/MM';
+  protected selecionado = false;
 
   @Input() public agendas: Agenda[] = [];
+  @Input() public agendaSelecionadaId: number | null = null;
   @Input() public carregando = false;
   @Input() public erro = '';
 
@@ -46,7 +43,4 @@ export class ListAgendaComponent {
   private atualizarFormatoData(): void {
     this.formatoData = this.translate.currentLang() === 'en' ? 'MM/dd' : 'dd/MM';
   }
-
 }
-
-

@@ -1,7 +1,7 @@
 <div class="min-h-screen overflow-x-hidden bg-purple-50">
   <!-- SIDEBAR ESQUERDA -->
   <aside
-    class="fixed left-0 top-0 z-50 flex h-screen w-[72px] flex-col items-center bg-[#5940A0] text-white transition-colors duration-300 ease-in-out"
+    class="fixed left-0 top-0 z-50 flex h-screen w-18 flex-col items-center bg-[#5940A0] text-white transition-colors duration-300 ease-in-out"
     [ngClass]="{
       'bg-[#5940A0]': router.url.startsWith('/create'),
       'bg-indigo-500': router.url.startsWith('/list'),
@@ -132,7 +132,7 @@
   </aside>
 
   <!-- CONTEÚDO PRINCIPAL -->
-  <main class="ml-[72px] min-w-0 space-y-6">
+  <main class="ml-18 min-w-0 space-y-6">
     <div
       class="relative z-40 flex h-15 w-full items-center bg-white px-4 py-2 shadow shadow-black/15 transition-all duration-300"
     >
@@ -443,7 +443,7 @@
           <button
             app-button=""
             type="button"
-            (click)="suporteVisivel = true"
+            (click)="onAbrirModal()"
             class="relative group inline-flex flex-col items-center justify-center w-16 h-16 rounded-lg p-2 hover:brightness-110 cursor-pointer"
           >
             <svg class="w-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" fill="none">
@@ -528,6 +528,8 @@
       </div>
     </div>
     <router-outlet></router-outlet>
-    <app-suport *ngIf="suporteVisivel" (fechar)="suporteVisivel = false"></app-suport>
+    @if (suporteVisivel) {
+      <app-support (fechar)="suporteVisivel = false"></app-support>
+    }
   </main>
 </div>

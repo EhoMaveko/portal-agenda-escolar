@@ -1,34 +1,12 @@
 <div class="grid min-w-0 grid-cols-1 items-start gap-10 px-2 py-2 sm:px-3 lg:px-3">
-  <section
-    class="min-w-0 rounded-lg bg-white p-4 sm:p-6 inset-shadow-sm inset-shadow-black/20"
-  >
+  <section class="min-w-0 rounded-lg bg-white p-4 sm:p-6 inset-shadow-sm inset-shadow-black/20">
     <app-list-agenda
       [agendas]="agendas"
+      [agendaSelecionadaId]="agendaSelecionadaId"
       [carregando]="carregando"
       [erro]="erro"
       (selecionar)="onSelecionarAgenda($event)"
       (excluir)="onExcluirAgenda($event)"
     ></app-list-agenda>
   </section>
-  <div
-    *ngIf="modalRespostaVisivel"
-    class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-6"
-    tabindex="-1"
-    (click)="onFecharModalResposta()"
-    (keydown.escape)="onFecharModalResposta()"
-  >
-    <app-answer-agenda
-      [formulario]="formulario"
-      [enviandoResposta]="enviandoResposta"
-      [mensagemResposta]="mensagemResposta"
-      [respostas]="respostas"
-      [carregandoRespostas]="carregandoRespostas"
-      [formatoData]="formatoData"
-      [arquivoSelecionado]="arquivoSelecionado"
-      (enviar)="onEnviarResposta()"
-      (fechar)="onFecharModalResposta()"
-      (arquivoAlterado)="onArquivoSelecionado($event)"
-      (click)="$event.stopPropagation()"
-    ></app-answer-agenda>
-  </div>
 </div>

@@ -1,6 +1,6 @@
 <div
   class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
-  (click)="fechar.emit()"
+  (click)="onFechar()"
 >
   <section
     role="dialog"
@@ -15,7 +15,7 @@
       </h2>
       <button
         type="button"
-        (click)="fechar.emit()"
+        (click)="onFechar()"
         class="rounded-md px-2 py-1 text-2xl leading-none text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
         [attr.aria-label]="'supportModal.close' | translate"
       >
@@ -30,7 +30,7 @@
     <footer class="mt-6 flex justify-end">
       <button
         type="button"
-        (click)="fechar.emit()"
+        (click)="onFechar()"
         class="rounded-lg  px-4 py-2.5 font-medium text-white transition hover:saturate-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-700"
               [ngClass]="{
         'bg-[#7459bd]': router.url.startsWith('/create'),
